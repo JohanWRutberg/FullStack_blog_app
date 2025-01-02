@@ -45,11 +45,11 @@ export default function Document() {
         <meta name="author" content="Beat MasterMind" />
         <meta
           name="description"
-          content="Beat MasterMind Blog: Explore the best electronic drum kits, drumsticks, thrones, and top-rated gear for Alesis, Donner and Roland electronic drums."
+          content="Beat MasterMind Blog: Explore the best electronic drum kits, drumsticks, thrones, and top-rated gear for Alesis, Donner, Yamaha and Roland electronic drums."
         />
         <meta
           name="keywords"
-          content="electronic drum kits, best e drum kits, best roland electronic drum kit, top electronic drum sets, drumsticks for electronic drums, best drum thrones, best electric drum kit, Alesis electronic drums, Roland electronic drums, Donner electronic drums, Yamaha electronic drums"
+          content="electronic drum kits, best e drum kits, top electronic drum sets, best drumsticks for electronic drums, best drum thrones, Alesis, Roland, Donner, Yamaha electronic drums"
         />
 
         {/* Open Graph Meta Tags */}
