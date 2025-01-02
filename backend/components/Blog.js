@@ -174,17 +174,24 @@ export default function Blog({
             onChange={(e) => setTags(Array.from(e.target.selectedOptions, (option) => option.value))}
             multiple
           >
-            <option value="edrums">edrums</option>
-            <option value="drums">drums</option>
-            <option value="electronic">electronic</option>
-            <option value="pads">pads</option>
-            <option value="cymbals">cymbals</option>
-            <option value="sets">sets</option>
-            <option value="sound">sound</option>
-            <option value="drumkit">drumkit</option>
-            <option value="beat">beat</option>
-            <option value="drumsticks">drumsticks</option>
-            <option value="kids">kids</option>
+            <option value="audio">#Audio</option>
+            <option value="beat">#Beat</option>
+            <option value="comparison">#Comparison</option>
+            <option value="controller">#Controller</option>
+            <option value="cymbals">#Cymbals</option>
+            <option value="drumkit">#Drumkit</option>
+            <option value="drums">#Drums</option>
+            <option value="drumsticks">#Drumsticks</option>
+            <option value="edrums">#Edrums</option>
+            <option value="electronic">#Electronic</option>
+            <option value="hardware">#Hardware</option>
+            <option value="kids">#Kids</option>
+            <option value="kits">#Kits</option>
+            <option value="pads">#Pads</option>
+            <option value="practice">#Practice</option>
+            <option value="rhythm">#Rhythm</option>
+            <option value="sets">#Sets</option>
+            <option value="sound">#Sound</option>
           </select>
           <p className="existingcategory flex gap-1 mt-1 mb-1">
             Vald:{" "}

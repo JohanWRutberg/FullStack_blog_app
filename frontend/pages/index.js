@@ -3,6 +3,10 @@ import Head from "next/head";
 import Link from "next/link";
 import Image from "next/image";
 import { useState } from "react";
+import { GiDrumKit } from "react-icons/gi";
+import { GiDrum } from "react-icons/gi";
+import { RiSoundModuleFill } from "react-icons/ri";
+import { FaHotjar } from "react-icons/fa";
 
 export default function Home() {
   const [currentPage, setCurrentPage] = useState(1); // Page number
@@ -65,7 +69,7 @@ export default function Home() {
         <meta property="og:title" content="Beat MasterMind Blog" />
         <meta property="og:description" content="Beat Master Mind - Blog about Electronic drums and accessories!" />
         <meta property="og:image" content="https://beatmastermind.comnull" />
-
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         {/* Twitter Meta Tags */}
         <meta name="twitter:card" content="summary_large_image" />
         <meta property="twitter:domain" content="beatmastermind.com" />
@@ -85,7 +89,8 @@ export default function Home() {
         <div className="header-container flex flex-sb w-100">
           <div className="leftheader_info">
             <h1 data-aos="fade-right">
-              <span>Beat MasterMind</span> Blog<span>.</span> <br />
+              Beat <span>MasterMind</span>.
+              <br />
             </h1>
             <h3 data-aos="fade-right">Your electronic drums expert</h3>
             <div className="flex gap-2">
@@ -178,8 +183,72 @@ export default function Home() {
               </button>
             </div>
           </div>
+          <div className="rightblog_info">
+            <div className="topics_sec">
+              <h2>Topics</h2>
+              <div className="topics_list">
+                <Link href="/topics/drumsets">
+                  <div className="topics">
+                    <div className="flex flex-center topics_svg">
+                      <GiDrumKit />
+                    </div>
+                    <h3>Drum sets</h3>
+                  </div>
+                </Link>
+                <Link href="/topics/accessories">
+                  <div className="topics">
+                    <div className="flex flex-center topics_svg">
+                      <GiDrum />
+                    </div>
+                    <h3>Accessories</h3>
+                  </div>
+                </Link>
+                <Link href="/topics/sound">
+                  <div className="topics">
+                    <div className="flex flex-center topics_svg">
+                      <RiSoundModuleFill />
+                    </div>
+                    <h3>Sound</h3>
+                  </div>
+                </Link>
+                <Link href="/topics/hot">
+                  <div className="topics">
+                    <div className="flex flex-center topics_svg">
+                      <FaHotjar />
+                    </div>
+                    <h3>Hot topics</h3>
+                  </div>
+                </Link>
 
-          <div className="rightblog_info">{/* Other sections */}</div>
+                {/* Add other topics */}
+              </div>
+            </div>
+            <div className="tags_sec mt-3">
+              <h2>Tags</h2>
+              <div className="tags_list">
+                <Link href="/tag/audio">#Audio</Link>
+                <Link href="/tag/beat">#Beat</Link>
+                <Link href="/tag/comparison">#Comparison</Link>
+                <Link href="/tag/controller">#Controller</Link>
+                <Link href="/tag/cymbals">#Cymbals</Link>
+                <Link href="/tag/drumkit">#Drumkit</Link>
+                <Link href="/tag/drums">#Drums</Link>
+                <Link href="/tag/drumsticks">#Drumsticks</Link>
+                <Link href="/tag/edrums">#Edrums</Link>
+                <Link href="/tag/electronic">#Electronic</Link>
+                <Link href="/tag/hardware">#Hardware</Link>
+                <Link href="/tag/kids">#Kids</Link>
+                <Link href="/tag/kits">#Kits</Link>
+                <Link href="/tag/pads">#Pads</Link>
+                <Link href="/tag/practice">#Practice</Link>
+                <Link href="/tag/rhythm">#Rhythm</Link>
+                <Link href="/tag/sets">#Sets</Link>
+                <Link href="/tag/sound">#Sound</Link>
+
+                {/* Add other tags */}
+              </div>
+            </div>
+          </div>
         </div>
       </section>
     </>
