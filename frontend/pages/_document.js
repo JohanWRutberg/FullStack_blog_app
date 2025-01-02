@@ -45,7 +45,7 @@ export default function Document() {
         <meta name="author" content="Beat MasterMind" />
         <meta
           name="description"
-          content="Beat MasterMind Blog: Explore the best electronic drum kits, drumsticks, thrones, and top-rated gear for Alesis, Donner, Yamaha and Roland electronic drums."
+          content="Beat MasterMind Blog: Discover the best electronic drum kits, e-drums, drumsticks, thrones, and top-rated gear for Alesis, Donner, Yamaha, and Roland electronic drums."
         />
         <meta
           name="keywords"
@@ -58,7 +58,7 @@ export default function Document() {
         <meta property="og:title" content="Beat MasterMind Blog - Electronic Drums & Accessories" />
         <meta
           property="og:description"
-          content="Beat MasterMind Blog: Explore the best electronic drum kits, drumsticks, thrones, and top-rated gear for Alesis, Donner, Yamaha and Roland electronic drums."
+          content="Beat MasterMind Blog: Discover the best electronic drum kits, e-drums, drumsticks, thrones, and top-rated gear for Alesis, Donner, Yamaha, and Roland electronic drums."
         />
         <meta property="og:image" content="https://www.beatmastermind.com/og-image.jpg" />
         <meta property="og:image:width" content="920" />
