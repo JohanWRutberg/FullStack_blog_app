@@ -41,11 +41,15 @@ export default function Document() {
         {/* Essential Meta Tags */}
         <meta charSet="UTF-8" />
         <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
-        {/* <meta name="viewport" content="width=device-width, initial-scale=1.0" /> */}
+
         <meta name="author" content="Beat MasterMind" />
         <meta
           name="description"
-          content="Discover expert insights, reviews, and guides on electronic drums and accessories at Beat Mastermind. Your ultimate resource for all things electronic drumming."
+          content="Beat MasterMind Blog: Explore the best electronic drum kits, drumsticks, thrones, and top-rated gear for Alesis, Donner and Roland electronic drums."
+        />
+        <meta
+          name="keywords"
+          content="electronic drum kits, best e drum kits, best roland electronic drum kit, top electronic drum sets, drumsticks for electronic drums, best drum thrones, best electric drum kit, Alesis electronic drums, Roland electronic drums, Donner electronic drums, Yamaha electronic drums"
         />
 
         {/* Open Graph Meta Tags */}
@@ -54,7 +58,7 @@ export default function Document() {
         <meta property="og:title" content="Beat MasterMind Blog - Electronic Drums & Accessories" />
         <meta
           property="og:description"
-          content="Discover expert insights, reviews, and guides on electronic drums and accessories at Beat Mastermind. Your ultimate resource for all things electronic drumming."
+          content="Beat MasterMind Blog: Explore the best electronic drum kits, electronic drum pads, drumsticks, thrones, and top-rated gear for Alesis electronic drums, Donner electronic drums, Yamaha electronic drums and Roland electronic drums."
         />
         <meta property="og:image" content="https://www.beatmastermind.com/og-image.jpg" />
         <meta property="og:image:width" content="920" />
