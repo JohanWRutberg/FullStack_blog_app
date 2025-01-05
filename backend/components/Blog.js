@@ -174,11 +174,13 @@ export default function Blog({
             onChange={(e) => setTags(Array.from(e.target.selectedOptions, (option) => option.value))}
             multiple
           >
+            <option value="alesis">#Alesis</option>
             <option value="audio">#Audio</option>
             <option value="beat">#Beat</option>
             <option value="comparison">#Comparison</option>
             <option value="controller">#Controller</option>
             <option value="cymbals">#Cymbals</option>
+            <option value="donner">#Donner</option>
             <option value="drumkit">#Drumkit</option>
             <option value="drums">#Drums</option>
             <option value="drumsticks">#Drumsticks</option>
@@ -189,9 +191,14 @@ export default function Blog({
             <option value="kits">#Kits</option>
             <option value="pads">#Pads</option>
             <option value="practice">#Practice</option>
+            <option value="pro">#Pro</option>
             <option value="rhythm">#Rhythm</option>
+            <option value="roland">#Roland</option>
             <option value="sets">#Sets</option>
+            <option value="simmons">#Simmons</option>
             <option value="sound">#Sound</option>
+            <option value="strike">#Strike</option>
+            <option value="yamaha">#Yamaha</option>
           </select>
           <p className="existingcategory flex gap-1 mt-1 mb-1">
             Vald:{" "}

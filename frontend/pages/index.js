@@ -226,11 +226,13 @@ export default function Home() {
             <div className="tags_sec mt-3">
               <h2>Tags</h2>
               <div className="tags_list">
+                <Link href="/tag/alesis">#Alesis</Link>
                 <Link href="/tag/audio">#Audio</Link>
                 <Link href="/tag/beat">#Beat</Link>
                 <Link href="/tag/comparison">#Comparison</Link>
                 <Link href="/tag/controller">#Controller</Link>
                 <Link href="/tag/cymbals">#Cymbals</Link>
+                <Link href="/tag/donner">#Donner</Link>
                 <Link href="/tag/drumkit">#Drumkit</Link>
                 <Link href="/tag/drums">#Drums</Link>
                 <Link href="/tag/drumsticks">#Drumsticks</Link>
@@ -241,9 +243,14 @@ export default function Home() {
                 <Link href="/tag/kits">#Kits</Link>
                 <Link href="/tag/pads">#Pads</Link>
                 <Link href="/tag/practice">#Practice</Link>
+                <Link href="/tag/pro">#Pro</Link>
                 <Link href="/tag/rhythm">#Rhythm</Link>
+                <Link href="/tag/roland">#Roland</Link>
                 <Link href="/tag/sets">#Sets</Link>
+                <Link href="/tag/simmons">#Simmons</Link>
                 <Link href="/tag/sound">#Sound</Link>
+                <Link href="/tag/strike">#Strike</Link>
+                <Link href="/tag/yamaha">#Yamaha</Link>
 
                 {/* Add other tags */}
               </div>
