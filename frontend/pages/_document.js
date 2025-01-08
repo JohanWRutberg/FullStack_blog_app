@@ -60,10 +60,11 @@ export default function Document() {
           property="og:description"
           content="Beat MasterMind Blog: Discover the best electronic drum kits, e-drums, drumsticks, thrones, and top-rated gear for Alesis, Donner, Yamaha, and Roland electronic drums."
         />
-        <meta property="og:image" content="https://www.beatmastermind.com/og-image.jpg" />
-        <meta property="og:image:width" content="920" />
-        <meta property="og:image:height" content="470" />
+        <meta property="og:image" content="https://www.beatmastermind.com/logo_1250_1250.png" />
+        <meta property="og:image:width" content="1250" />
+        <meta property="og:image:height" content="1250" />
         <meta property="og:site_name" content="Beat MasterMind" />
+        <meta name="twitter:image" content="https://www.beatmastermind.com/logo_1250_1250.png" />
 
         {/* Preconnect for Fonts */}
         <link rel="preconnect" href="https://fonts.googleapis.com" />
