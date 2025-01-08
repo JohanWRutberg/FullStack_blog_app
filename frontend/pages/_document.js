@@ -3,16 +3,20 @@ import { GoogleAnalytics, GoogleTagManager } from "@next/third-parties/google";
 import Script from "next/script";
 
 export default function Document() {
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://www.beatmastermind.com";
+
   return (
     <Html lang="en">
       <Head>
         {/* CookieYes banner */}
-        <Script
-          id="cookieyes"
-          type="text/javascript"
-          src={`https://cdn-cookieyes.com/client_data/${process.env.NEXT_PUBLIC_COOKIE_YES}/script.js`}
-          strategy="beforeInteractive"
-        ></Script>
+        {process.env.NEXT_PUBLIC_COOKIE_YES && (
+          <Script
+            id="cookieyes"
+            type="text/javascript"
+            src={`https://cdn-cookieyes.com/client_data/${process.env.NEXT_PUBLIC_COOKIE_YES}/script.js`}
+            strategy="beforeInteractive"
+          />
+        )}
 
         {/* Google Tag Manager */}
         <Script id="gtm" strategy="afterInteractive">
@@ -24,24 +28,25 @@ export default function Document() {
         </Script>
 
         {/* Google Analytics */}
-        <Script
-          id="ga"
-          dangerouslySetInnerHTML={{
-            __html: `
-              window.dataLayer = window.dataLayer || [];
-              function gtag(){dataLayer.push(arguments);}
-              gtag('js', new Date());
-              gtag('config', '${process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS}', {
-                page_path: window.location.pathname,
-              });
-            `
-          }}
-        />
+        {process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS && (
+          <Script
+            id="ga"
+            dangerouslySetInnerHTML={{
+              __html: `
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){dataLayer.push(arguments);}
+                gtag('js', new Date());
+                gtag('config', '${process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS}', {
+                  page_path: window.location.pathname,
+                });
+              `
+            }}
+          />
+        )}
 
         {/* Essential Meta Tags */}
         <meta charSet="UTF-8" />
         <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
-
         <meta name="author" content="Beat MasterMind" />
         <meta
           name="description"
@@ -51,6 +56,11 @@ export default function Document() {
           name="keywords"
           content="electronic drum kits, best e drum kits, top electronic drum sets, best drumsticks for electronic drums, best drum thrones, Alesis, Roland, Donner, Yamaha electronic drums"
         />
+        {/* <meta name="viewport" content="width=device-width, initial-scale=1.0" /> */}
+        <meta name="theme-color" content="#ffffff" />
+
+        {/* Canonical URL */}
+        <link rel="canonical" href={siteUrl} />
 
         {/* Open Graph Meta Tags */}
         <meta property="og:locale" content="en_US" />
@@ -60,11 +70,11 @@ export default function Document() {
           property="og:description"
           content="Beat MasterMind Blog: Discover the best electronic drum kits, e-drums, drumsticks, thrones, and top-rated gear for Alesis, Donner, Yamaha, and Roland electronic drums."
         />
-        <meta property="og:image" content="https://www.beatmastermind.com/logo_1250_1250.png" />
+        <meta property="og:image" content={`${siteUrl}/logo_1250_1250.png`} />
         <meta property="og:image:width" content="1250" />
         <meta property="og:image:height" content="1250" />
         <meta property="og:site_name" content="Beat MasterMind" />
-        <meta name="twitter:image" content="https://www.beatmastermind.com/logo_1250_1250.png" />
+        <meta name="twitter:image" content={`${siteUrl}/logo_1250_1250.png`} />
 
         {/* Preconnect for Fonts */}
         <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -73,9 +83,19 @@ export default function Document() {
           href="https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap"
           rel="stylesheet"
         />
+        <link
+          rel="stylesheet"
+          href="https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap"
+        />
+        <noscript>
+          <link
+            rel="stylesheet"
+            href="https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap"
+          />
+        </noscript>
 
         {/* Favicon */}
-        <link rel="icon" href="/favicon.png" />
+        <link rel="icon" type="image/png" href="/favicon.png" sizes="32x32" />
 
         {/* Canonical URL */}
         <link rel="canonical" href="https://www.beatmastermind.com" />
