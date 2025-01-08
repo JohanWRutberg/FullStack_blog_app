@@ -79,6 +79,27 @@ export default function Home() {
         <meta name="twitter:image" content="https://beatmastermind.comnull"></meta>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.png" />
+
+        <script type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "VideoObject",
+            name: "Beat MasterMind Video",
+            description: "An introduction to Beat MasterMind - Your electronic drums expert.",
+            thumbnailUrl: "https://www.beatmastermind.com/video_thumbnail.jpg",
+            uploadDate: "2023-12-31T12:00:00+00:00", // Update with actual date
+            contentUrl: "https://www.beatmastermind.com/Beat_MasterMind.mp4",
+            embedUrl: "https://www.beatmastermind.com", // URL of the page where the video is embedded
+            publisher: {
+              "@type": "Organization",
+              name: "Beat MasterMind",
+              logo: {
+                "@type": "ImageObject",
+                url: "https://www.beatmastermind.com/favicon.png"
+              }
+            }
+          })}
+        </script>
       </Head>
 
       <section className="header_data_section">
@@ -86,6 +107,12 @@ export default function Home() {
           <source src="/Beat_MasterMind.mp4" type="video/mp4" />
           Your browser does not support the video tag.
         </video>
+        {/* Add a fallback image for the video */}
+        <img
+          src="/video_thumbnail.jpg"
+          alt="Beat MasterMind video thumbnail"
+          style={{ display: "none" }} // Hide the image for users, but keep it for crawlers
+        />
         <div className="header-container flex flex-sb w-100">
           <div className="leftheader_info">
             <h1 data-aos="fade-right">
