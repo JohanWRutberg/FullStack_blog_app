@@ -68,7 +68,7 @@ export default function Home() {
         <meta property="og:type" content="website" />
         <meta property="og:title" content="Beat MasterMind Blog" />
         <meta property="og:description" content="Beat Master Mind - Blog about Electronic drums and accessories!" />
-        <meta property="og:image" content="https://beatmastermind.comnull" />
+        <meta property="og:image" content="https://beatmastermind.com/logo_1250_1250.png" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         {/* Twitter Meta Tags */}
         <meta name="twitter:card" content="summary_large_image" />
@@ -76,7 +76,7 @@ export default function Home() {
         <meta property="twitter:url" content="https://www.beatmastermind.com/" />
         <meta name="twitter:title" content="Beat Master Mind" />
         <meta name="twitter:description" content="Beat Master Mind - Blog about Electronic drums and accessories!" />
-        <meta name="twitter:image" content="https://beatmastermind.comnull"></meta>
+        <meta name="twitter:image" content="https://beatmastermind.com/logo_1250_1250.png"></meta>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.png" />
 
@@ -87,9 +87,9 @@ export default function Home() {
             name: "Beat MasterMind Video",
             description: "An introduction to Beat MasterMind - Your electronic drums expert.",
             thumbnailUrl: "https://www.beatmastermind.com/video_thumbnail.jpg",
-            uploadDate: "2023-12-31T12:00:00+00:00", // Update with actual date
+            uploadDate: "2023-12-31T12:00:00+00:00",
             contentUrl: "https://www.beatmastermind.com/Beat_MasterMind.mp4",
-            embedUrl: "https://www.beatmastermind.com", // URL of the page where the video is embedded
+            embedUrl: "https://www.beatmastermind.com",
             publisher: {
               "@type": "Organization",
               name: "Beat MasterMind",
