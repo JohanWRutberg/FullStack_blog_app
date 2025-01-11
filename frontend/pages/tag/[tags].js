@@ -1,4 +1,5 @@
 import axios from "axios";
+import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
@@ -91,7 +92,7 @@ export default function CategoryPage({ initialData, tag }) {
                 return (
                   <div className="cate_blog" key={item._id}>
                     <Link href={`/blog/${item.slug}`}>
-                      <img src={firstImageUrl || "/img/noimage.jpg"} alt={item.title} />
+                      <Image src={firstImageUrl || "/img/noimage.jpg"} alt={item.title} height={830} width={1250} />
                     </Link>
 
                     <div className="bloginfo mt-2">
@@ -104,7 +105,7 @@ export default function CategoryPage({ initialData, tag }) {
                       <p>{getFirstWords(item.description)}</p>
                       <div className="blogauthor flex gap-1">
                         <div className="blogaimg">
-                          <img src="/img/Beat_Master.png" />
+                          <Image src="/img/Beat_Master.png" alt="logo" height={50} width={50} />
                         </div>
                         <div className="flex flex-col flex-left gap-05">
                           <h4>Beat MasterMind</h4>

@@ -5,6 +5,7 @@ import { HiBars3BottomRight } from "react-icons/hi2";
 import { LuSun } from "react-icons/lu";
 import { useEffect, useState } from "react";
 import useFetchData from "@/hooks/useFetchData";
+import Image from "next/image";
 
 export default function Header() {
   // Searchbar open and close function
@@ -90,7 +91,7 @@ export default function Header() {
         <div className="container header">
           <div className="header_logo">
             <Link href="/">
-              <img src="/img/Logo/BeatMaster_3.PNG" alt="logo" width={100} height={100} />
+              <Image src="/img/Logo/BeatMaster_3.PNG" alt="logo" width={100} height={100} />
             </Link>
           </div>
           <div className="searchbar">

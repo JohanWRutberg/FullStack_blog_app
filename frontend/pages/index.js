@@ -108,9 +108,11 @@ export default function Home() {
           Your browser does not support the video tag.
         </video>
         {/* Add a fallback image for the video */}
-        <img
+        <Image
           src="/video_thumbnail.jpg"
           alt="Beat MasterMind video thumbnail"
+          width={800}
+          height={600}
           style={{ display: "none" }} // Hide the image for users, but keep it for crawlers
         />
         <div className="header-container flex flex-sb w-100">
@@ -167,7 +169,7 @@ export default function Home() {
                           <p>{getFirstWords(blog.description)}</p>
                           <div className="blogauthor flex gap-1">
                             <div className="blogaimg">
-                              <img src="/img/Beat_Master.PNG" alt="logo" />
+                              <Image src="/img/Beat_Master.PNG" alt="logo" height={50} width={50} />
                             </div>
                             <div className="flex flex-col flex-left gap-05">
                               <h4>Beat Master Mind</h4>
