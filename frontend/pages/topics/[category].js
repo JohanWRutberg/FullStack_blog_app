@@ -117,7 +117,7 @@ export default function CategoryPage({ initialData, category }) {
                         <p>{getFirstWords(item.description)}</p>
                         <div className="blogauthor flex gap-1">
                           <div className="blogaimg">
-                            <Image src="/img/Beat_Master.png" alt="logo" height={50} width={50} />
+                            <Image src="/img/Beat_Master.PNG" alt="logo" height={50} width={50} />
                           </div>
                           <div className="flex flex-col flex-left gap-05">
                             <h5>Beat MasterMind</h5>

@@ -62,20 +62,20 @@ export default function Home() {
     <>
       <Head>
         <title>Beat MasterMind</title>
-        <meta name="description" content="Beat Master Mind - Blog about Electronic drums and accessories!" />
+        <meta name="description" content="Beat MasterMind - Blog about Electronic drums and accessories!" />
         {/* Facebook Meta Tags */}
         <meta property="og:url" content="https://www.beatmastermind.com/" />
         <meta property="og:type" content="website" />
         <meta property="og:title" content="Beat MasterMind Blog" />
-        <meta property="og:description" content="Beat Master Mind - Blog about Electronic drums and accessories!" />
+        <meta property="og:description" content="Beat MasterMind - Blog about Electronic drums and accessories!" />
         <meta property="og:image" content="https://beatmastermind.com/logo_1250_1250.png" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         {/* Twitter Meta Tags */}
         <meta name="twitter:card" content="summary_large_image" />
         <meta property="twitter:domain" content="beatmastermind.com" />
         <meta property="twitter:url" content="https://www.beatmastermind.com/" />
-        <meta name="twitter:title" content="Beat Master Mind" />
-        <meta name="twitter:description" content="Beat Master Mind - Blog about Electronic drums and accessories!" />
+        <meta name="twitter:title" content="Beat MasterMind" />
+        <meta name="twitter:description" content="Beat MasterMind - Blog about Electronic drums and accessories!" />
         <meta name="twitter:image" content="https://beatmastermind.com/logo_1250_1250.png"></meta>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.png" />
@@ -172,7 +172,7 @@ export default function Home() {
                               <Image src="/img/Beat_Master.PNG" alt="logo" height={50} width={50} />
                             </div>
                             <div className="flex flex-col flex-left gap-05">
-                              <h4>Beat Master Mind</h4>
+                              <h4>Beat MasterMind</h4>
                               <span>
                                 {new Date(blog.createdAt).toLocaleDateString("en-US", {
                                   month: "long",
