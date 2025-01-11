@@ -170,7 +170,8 @@ export async function getServerSideProps(context) {
   let initialData = [];
 
   try {
-    const res = await axios.get(`http://localhost:3000/api/getblog?blogcategory=${category}`);
+    /* const res = await axios.get(`http://localhost:3000/api/getblog?blogcategory=${category}`); */
+    const res = await axios.get(`http://www.beatmastermind.com/api/getblog?blogcategory=${category}`);
     initialData = res.data;
   } catch (error) {
     console.error("Error fetching blog data", error);
