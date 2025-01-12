@@ -93,7 +93,7 @@ const Contact = () => {
 
       setTimeout(() => {
         setFormMessage("");
-      }, 5000);
+      }, 3000);
 
       setFormData({
         name: "",
@@ -111,7 +111,7 @@ const Contact = () => {
       setFormMessage("An error occurred. Please try again later.");
       setTimeout(() => {
         setFormMessage("");
-      }, 5000);
+      }, 3000);
     }
   };
 
@@ -201,9 +201,9 @@ const Contact = () => {
                 <button
                   type="submit"
                   disabled={!isFormValid()}
-                  className={`btn rounded-full border border-white/50 max-w-[170px]
-    px-8 transition-all duration-300 flex items-center justify-center
-    overflow-hidden ${isFormValid() ? "hover:border-green-500 group" : "opacity-50 cursor-not-allowed"}`}
+                  className={`btn rounded-full border border-white/50 max-w-[170px] px-8 transition-all duration-300 flex items-center justify-center overflow-hidden ${
+                    isFormValid() ? "hover:border-green-500 group" : "opacity-50 cursor-not-allowed"
+                  }`}
                 >
                   <span
                     className={`${
