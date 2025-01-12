@@ -93,7 +93,7 @@ const Contact = () => {
 
       setTimeout(() => {
         setFormMessage("");
-      }, 3000);
+      }, 5000);
 
       setFormData({
         name: "",
@@ -111,7 +111,7 @@ const Contact = () => {
       setFormMessage("An error occurred. Please try again later.");
       setTimeout(() => {
         setFormMessage("");
-      }, 3000);
+      }, 5000);
     }
   };
 
