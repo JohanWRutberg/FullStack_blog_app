@@ -102,7 +102,9 @@ export default function CategoryPage({ initialData, tag }) {
           <div className="container">
             <div className="category_title">
               <div className="flex gap-1">
-                <h2>Tags: {loading ? <div>Loading... </div> : tag}</h2>
+                <h1>
+                  {/* Tags: */} {loading ? <div>Loading... </div> : tag}
+                </h1>
                 <span>{loading ? <div>0</div> : publishedblogs.filter((blog) => blog.tags).length}</span>
               </div>
             </div>

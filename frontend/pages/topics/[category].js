@@ -104,8 +104,8 @@ export default function CategoryPage({ initialData, category }) {
           <div className="container">
             <div className="category_title">
               <div className="flex gap-1">
-                <h2>
-                  Categories:{" "}
+                <h1>
+                  {/* Categories:{" "} */}
                   {loading ? (
                     <div>Loading...</div>
                   ) : publishedblogs.length ? (
@@ -113,7 +113,7 @@ export default function CategoryPage({ initialData, category }) {
                   ) : (
                     category
                   )}
-                </h2>
+                </h1>
                 <span>{loading ? <div>0</div> : publishedblogs.filter((blog) => blog.blogcategory).length}</span>
               </div>
             </div>
