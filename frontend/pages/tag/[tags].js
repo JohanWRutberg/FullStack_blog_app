@@ -1,8 +1,14 @@
 import axios from "axios";
 import Image from "next/image";
+import Head from "next/head";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
+
+function capitalizeFirstLetter(str) {
+  if (!str) return "";
+  return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
+}
 
 export default function CategoryPage({ initialData, tag }) {
   const [loading, setLoading] = useState(!initialData);
@@ -74,20 +80,20 @@ export default function CategoryPage({ initialData, tag }) {
   return (
     <>
       <Head>
-        <title>{tag ? `${tag} | Beat MasterMind` : "Beat MasterMind"}</title>
+        <title>{tag ? `${capitalizeFirstLetter(tag)} | Beat MasterMind` : "Beat MasterMind"}</title>
         <meta name="keywords" content={tag || "Tags on Beat MasterMind"} />
-        <meta property="og:title" content={tag || "Tags on Beat MasterMind"} />
+        <meta property="og:title" content={tag ? capitalizeFirstLetter(tag) : "Tags on Beat MasterMind"} />
         <meta
           property="og:description"
-          content={blog.description ? blog.description.slice(0, 150) : "Blog post on TopGear Tents"}
+          content={blog.description ? blog.description.slice(0, 150) : "Blog post on Beat MasterMind"}
         />
         <meta property="og:image" content={blog.image || "/default-image.png"} />
         <meta property="og:url" content={`https://www.beatmastermind.com${router.asPath}`} />
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content={tag || "Tags on Beat MasterMind"} />
+        <meta name="twitter:title" content={tag ? capitalizeFirstLetter(tag) : "Tags on Beat MasterMind"} />
         <meta
           name="twitter:description"
-          content={blog.description ? blog.description.slice(0, 150) : "Blog post on TopGear Tents"}
+          content={blog.description ? blog.description.slice(0, 150) : "Blog post on Beat MasterMind"}
         />
         <meta name="twitter:image" content={blog.image || "/default-image.png"} />
       </Head>
