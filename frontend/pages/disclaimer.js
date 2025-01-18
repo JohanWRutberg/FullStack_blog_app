@@ -58,8 +58,8 @@ export default function DisclaimerPage() {
                   MasterMind.com are affiliate links, which means we earn a small commission from sales.
                   <br />
                   <br />
-                  <h1>AI-images</h1>
-                  <h2>Usage of images.</h2>
+                  <h21>AI-images</h21>
+                  <h3>Usage of images.</h3>
                   Some of the images featured on this blog may have been generated using artificial intelligence (AI)
                   tools. These AI-generated images are used to enhance the content and provide visual representation.
                   While efforts are made to ensure that these images are accurate and appropriate, they may not always
