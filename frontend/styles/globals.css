@@ -26,7 +26,7 @@ body.dark {
   height: 5px;
   background-color: #08e242;
   /* Customize the color as needed */
-  transition: width 0.3s ease-in-out;
+  transition: width 0.2s ease-in-out;
   z-index: 999999999999;
 }
 
@@ -433,7 +433,7 @@ button {
   color: #fff;
   padding: 2rem;
   z-index: 9999;
-  transition: 0.3s ease-in-out;
+  transition: 0.2s ease-in-out;
 }
 
 .navlist_mobile.open {
@@ -785,7 +785,7 @@ button {
   border-radius: 30px 50px;
   background-color: transparent;
   border: 1px solid #555;
-  transition: 0.3s ease;
+  transition: 0.2s ease;
 }
 
 .leftheader_info a:nth-child(1) button {
@@ -1215,7 +1215,7 @@ button {
 .topics_svg {
   padding: 1rem 1.5rem;
   background-color: #e2e8f0;
-  transition: 0.3s ease;
+  transition: 0.2s ease;
 }
 
 .topics_svg {
@@ -1708,7 +1708,7 @@ a:hover .st_icon_amazon,
   border-radius: 30px 50px;
   background-color: #ffef3e;
   border: 1px solid #f70707;
-  transition: 0.3s ease;
+  transition: 0.2s ease;
   cursor: pointer;
 }
 
@@ -2189,7 +2189,7 @@ a.custom-button {
   border-radius: 10px;
   margin-bottom: 3rem;
   padding: 0.5rem;
-  transition: 0.3s ease-in-out;
+  transition: 0.2s ease-in-out;
   background-color: #ffffff;
 }
 
