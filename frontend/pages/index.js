@@ -293,7 +293,7 @@ export default function Home() {
                 </h4>
                 <div className="social_talks flex flex-center gap-1 mt-2">
                   <div className="st_icon">
-                    <Link href="https://www.instagram.com/beatmastermindaff" target="_blank">
+                    <Link href="https://www.instagram.com/beatmastermind" target="_blank">
                       <FaInstagram style={{ color: "#de3fac", fontSize: "30px" }} />
                     </Link>
                   </div>
