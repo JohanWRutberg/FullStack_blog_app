@@ -50,11 +50,11 @@ export default function Document() {
         <meta name="author" content="Beat MasterMind" />
         <meta
           name="description"
-          content="Beat MasterMind Blog: Discover the best electronic drum kits, e-drums, drumsticks, thrones, and top-rated gear for Alesis, Donner, Yamaha, and Roland electronic drums."
+          content="Discover top-rated electronic drum sets and pads. Find the most expensive electronic drum set in the world and affordable options like the Alesis Strike Pro Special Edition. Learn how to install caster rollers and stop floor vibrations."
         />
         <meta
           name="keywords"
-          content="electronic drum kits, best e drum kits, top electronic drum sets, best drumsticks for electronic drums, best drum thrones, Alesis, Roland, Donner, Yamaha electronic drums"
+          content="electronic drums, Alesis Strike Pro, Yamaha drum kit, drum pads, best electronic drums, used electronic drum set, beginner electronic drum kit"
         />
         {/* <meta name="viewport" content="width=device-width, initial-scale=1.0" /> */}
         <meta name="theme-color" content="#ffffff" />
@@ -68,7 +68,7 @@ export default function Document() {
         <meta property="og:title" content="Beat MasterMind Blog - Electronic Drums & Accessories" />
         <meta
           property="og:description"
-          content="Beat MasterMind Blog: Discover the best electronic drum kits, e-drums, drumsticks, thrones, and top-rated gear for Alesis, Donner, Yamaha, and Roland electronic drums."
+          content="Discover top-rated electronic drum sets and pads. Find the most expensive electronic drum set in the world and affordable options like the Alesis Strike Pro Special Edition. Learn how to install caster rollers and stop floor vibrations."
         />
         <meta property="og:image" content={`${siteUrl}/logo_1250_1250.png`} />
         <meta property="og:image:width" content="1250" />
