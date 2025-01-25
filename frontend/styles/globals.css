@@ -1308,6 +1308,7 @@ button {
 
 .talk_sec {
   width: 100%;
+  background-color: #ffffff;
   border: 1px solid #d4d4d4;
   border-radius: 10px;
   padding: 2rem 3rem;
@@ -1383,7 +1384,7 @@ button {
 
 .st_icon {
   background-color: #e2e8f0;
-  padding: 1rem;
+  padding: 0.5rem;
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -1391,31 +1392,19 @@ button {
   cursor: pointer;
 }
 
-.st_icon svg {
-  font-size: 24px;
-}
-
-/* Target the first Link (Instagram) */
-.social_talks a:nth-child(1) .st_icon svg {
-  color: #de3fac; /* Instagram icon */
-}
-
-/* Target the second Link (Pinterest) */
-.social_talks a:nth-child(2) .st_icon svg {
-  color: #e60023; /* Pinterest icon */
-}
-
-/* Directly target the third .st_icon (Facebook) */
-.social_talks > div:nth-child(3) svg {
-  color: #0866ff; /* Facebook icon */
-}
-
+/* Hover effect for all icons (change fill to white) */
 .st_icon:hover svg {
-  color: #fff; /* Hover effect for all icons */
+  fill: #fff !important; /* Change icon color to white on hover */
 }
 
+/* Hover effect for background */
 .st_icon:hover {
-  background-color: #bec4e1;
+  background-color: #667eea;
+}
+
+/* Adjust svg size if needed */
+.st_icon svg {
+  font-size: 24px; /* Adjust size */
 }
 
 /* st_icon_blog */
@@ -1554,6 +1543,7 @@ a:hover .st_icon_amazon,
   display: flex;
   flex-wrap: wrap; /* Enables wrapping for better responsiveness */
   justify-content: space-between; /* Space between items */
+  align-items: flex-start; /* Ensure content is aligned at the top */
   gap: 2rem; /* Add spacing between elements */
   max-width: 1200px; /* Limit max width for readability */
   margin: 0 auto; /* Center container */
@@ -1562,7 +1552,7 @@ a:hover .st_icon_amazon,
 .footer_logo,
 .q_links,
 .q_links.affiliate_disclaimer {
-  flex: 1 1 calc(33.333% - 2rem); /* Flexible width with space for gap */
+  flex: 1 1 calc(25% - 3rem); /* Flexible width with space for gap */
   padding: 1rem;
   text-align: left;
 }

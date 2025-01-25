@@ -7,6 +7,7 @@ import { GiDrumKit } from "react-icons/gi";
 import { GiDrum } from "react-icons/gi";
 import { RiSoundModuleFill } from "react-icons/ri";
 import { FaHotjar } from "react-icons/fa";
+import { FaInstagram, FaPinterestP } from "react-icons/fa6";
 
 export default function Home() {
   const [currentPage, setCurrentPage] = useState(1); // Page number
@@ -282,6 +283,26 @@ export default function Home() {
                 <Link href="/tag/yamaha">#Yamaha</Link>
 
                 {/* Add other tags */}
+              </div>
+            </div>
+            <div className="letstalk_sec mt-3">
+              <h2>Let's Talk</h2>
+              <div className="talk_sec">
+                <h4 className="text-center">
+                  Visit our social media platforms and share your experience with vehicle tents!
+                </h4>
+                <div className="social_talks flex flex-center gap-1 mt-2">
+                  <div className="st_icon">
+                    <Link href="https://www.instagram.com/beatmastermindaff" target="_blank">
+                      <FaInstagram style={{ color: "#de3fac", fontSize: "30px" }} />
+                    </Link>
+                  </div>
+                  <div className="st_icon">
+                    <Link href="https://se.pinterest.com/beatmastermindaff/" target="_blank">
+                      <FaPinterestP style={{ color: "#e60023", fontSize: "30px" }} />
+                    </Link>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
