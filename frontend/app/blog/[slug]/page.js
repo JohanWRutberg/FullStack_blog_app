@@ -3,7 +3,7 @@ import axios from "axios";
 import Link from "next/link";
 import Image from "next/image";
 import { useEffect, useState } from "react";
-import { useParams, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { BsAmazon } from "react-icons/bs";
 import { DiCodeigniter } from "react-icons/di";
 import { GiDrum, GiDrumKit } from "react-icons/gi";
@@ -36,8 +36,8 @@ function extractAmazonLinks(markdownContent) {
   return links;
 }
 
-export default function BlogPage() {
-  const { slug } = useParams(); // Extract the 'slug' parameter from the URL
+export default function BlogPage({ params }) {
+  const { slug } = params; // Get the 'slug' from the params object
   const router = useRouter(); // Use for navigation
 
   const [blog, setBlog] = useState({});
@@ -46,9 +46,10 @@ export default function BlogPage() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    // Check if the slug is undefined
     if (!slug) {
       console.error("Slug is undefined");
-      router.push("/404"); // Redirect to 404 page if slug is undefined
+      router.push("/404"); // Redirect to 404 if slug is undefined
       return;
     }
 
@@ -59,7 +60,7 @@ export default function BlogPage() {
 
         if (!alldata || alldata.length === 0) {
           console.error("No blog data found");
-          router.push("/404"); // Redirect to 404 page if no data is found
+          router.push("/404"); // Redirect to 404 page if no blog data is found
           return;
         }
 
@@ -192,7 +193,7 @@ export default function BlogPage() {
 
   return (
     <>
-      <Head key={router.asPath}>
+      <Head>
         <title>{`${blog.title || "Blog Post"} | Beat MasterMind`}</title>
         <meta
           name="description"
@@ -259,7 +260,6 @@ export default function BlogPage() {
                       width={300}
                       height={150}
                     />
-
                     <br />
                     <h5>Buy the products featured in blog post</h5>
                     <br />
