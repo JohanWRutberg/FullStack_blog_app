@@ -1,45 +1,53 @@
+"use client";
 import axios from "axios";
 import Image from "next/image";
-import Link from "next/link";
 import Head from "next/head";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 
 function capitalizeFirstLetter(str) {
   if (!str) return "";
   return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
 }
 
-export default function CategoryPage({ initialData, category }) {
-  const [loading, setLoading] = useState(!initialData);
-  const [currentPage, setCurrentPage] = useState(1); // Page number
-  const [perPage] = useState(7); // Number of blogs per page
-  const [blog, setBlog] = useState(initialData || []);
+async function fetchBlogData(tags) {
+  try {
+    const res = await axios.get(`/api/getblog?tags=${tags}`);
+    return res.data;
+  } catch (error) {
+    console.error("Error fetching blog data:", error);
+    return [];
+  }
+}
+
+export default function CategoryPage({ params }) {
+  const { tags } = params; // Extract the 'tags' directly from the props
   const router = useRouter();
 
+  const [loading, setLoading] = useState(true);
+  const [blog, setBlog] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1); // Page number
+  const [perPage] = useState(6); // Number of blogs per page
+
   useEffect(() => {
-    // Function to fetch blog data
-    const fetchBlogdata = async () => {
-      try {
-        const res = await axios.get(`/api/getblog?blogcategory=${category}`);
-        const alldata = res.data;
-        setBlog(alldata);
-        setLoading(false);
-      } catch (error) {
-        console.error("Error fetching blog data", error);
-        setLoading(false);
-      }
+    if (!tags) {
+      console.error("Tags are undefined");
+      router.push("/404"); // Redirect to 404 page if tags are missing
+      return;
+    }
+
+    const fetchBlogDataAndSetState = async () => {
+      setLoading(true);
+      const fetchedData = await fetchBlogData(tags);
+      setBlog(fetchedData);
+      setLoading(false);
     };
 
-    // Fetch blog data only if category exists
-    if (category) {
-      fetchBlogdata();
-    } else {
-      router.push("/404");
-    }
-  }, [category]);
+    fetchBlogDataAndSetState();
+  }, [tags, router]);
 
-  // Function to handle page change
+  // Handle page changes
   const paginate = (pageNumber) => {
     setCurrentPage(pageNumber);
   };
@@ -49,7 +57,6 @@ export default function CategoryPage({ initialData, category }) {
   const currentBlogs = blog.slice(indexOfFirstblog, indexOfLastblog);
 
   const allblog = blog.length;
-
   const pageNumbers = [];
 
   for (let i = 1; i <= Math.ceil(allblog / perPage); i++) {
@@ -60,9 +67,6 @@ export default function CategoryPage({ initialData, category }) {
   const publishedblogs = currentBlogs.filter((ab) => ab.status === "publish");
 
   function extractFirstImageUrl(markdownContent) {
-    if (!markdownContent || typeof markdownContent !== "string") {
-      return null;
-    }
     const regex = /!\[.*?\]\((.*?)\)/;
     const match = markdownContent.match(regex);
     return match ? match[1] : null;
@@ -76,45 +80,37 @@ export default function CategoryPage({ initialData, category }) {
     if (!text) return "";
     const cleanedText = removeSpecialCharacters(text);
     const words = cleanedText.split(" ");
-    return words.slice(0, 10).join(" ") + "...";
+    return words.slice(0, 20).join(" ") + "...";
   }
 
   return (
     <>
       <Head>
-        <title>{category ? `${capitalizeFirstLetter(category)} | Beat MasterMind` : "Beat MasterMind"}</title>
-        <meta name="keywords" content={category || "Topic on Beat MasterMind"} />
-        <meta property="og:title" content={category ? capitalizeFirstLetter(category) : "Topic on Beat MasterMind"} />
+        <title>{tags ? `${capitalizeFirstLetter(tags)} | Beat MasterMind` : "Beat MasterMind"}</title>
+        <meta name="keywords" content={tags || "Tags on Beat MasterMind"} />
+        <meta property="og:title" content={tags ? capitalizeFirstLetter(tags) : "Tags on Beat MasterMind"} />
         <meta
           property="og:description"
-          content={blog.description ? blog.description.slice(0, 150) : "Blog post on Beat MasterMind"}
+          content={publishedblogs.length ? publishedblogs[0].description.slice(0, 150) : "Blog post on Beat MasterMind"}
         />
-        <meta property="og:image" content={blog.image || "/default-image.png"} />
+        <meta property="og:image" content={publishedblogs[0]?.image || "/default-image.png"} />
         <meta property="og:url" content={`https://www.beatmastermind.com${router.asPath}`} />
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content={category ? capitalizeFirstLetter(category) : "Topic on Beat MasterMind"} />
+        <meta name="twitter:title" content={tags ? capitalizeFirstLetter(tags) : "Tags on Beat MasterMind"} />
         <meta
           name="twitter:description"
-          content={blog.description ? blog.description.slice(0, 150) : "Blog post on Beat MasterMind"}
+          content={publishedblogs.length ? publishedblogs[0].description.slice(0, 150) : "Blog post on Beat MasterMind"}
         />
-        <meta name="twitter:image" content={blog.image || "/default-image.png"} />
+        <meta name="twitter:image" content={publishedblogs[0]?.image || "/default-image.png"} />
       </Head>
+
       <div className="blogpage">
         <div className="category_slug">
           <div className="container">
             <div className="category_title">
               <div className="flex gap-1">
-                <h1>
-                  {/* Categories:{" "} */}
-                  {loading ? (
-                    <div>Loading...</div>
-                  ) : publishedblogs.length ? (
-                    publishedblogs[0]?.blogcategory.join(" - ")
-                  ) : (
-                    category
-                  )}
-                </h1>
-                <span>{loading ? <div>0</div> : publishedblogs.filter((blog) => blog.blogcategory).length}</span>
+                <h1>{loading ? "Loading..." : capitalizeFirstLetter(tags)}</h1>
+                <span>{loading ? 0 : publishedblogs.filter((blog) => blog.tags).length}</span>
               </div>
             </div>
             <div className="category_blogs mt-3">
@@ -141,10 +137,10 @@ export default function CategoryPage({ initialData, category }) {
                         <p>{getFirstWords(item.description)}</p>
                         <div className="blogauthor flex gap-1">
                           <div className="blogaimg">
-                            <Image src="/img/Beat_Master.PNG" alt="logo" height={50} width={50} />
+                            <Image src="/img/Logo/BeatMaster_3.png" alt="logo" height={50} width={50} />
                           </div>
                           <div className="flex flex-col flex-left gap-05">
-                            <h5>Beat MasterMind</h5>
+                            <h4>Beat MasterMind</h4>
                             <span>
                               {new Date(item.createdAt).toLocaleDateString("en-US", {
                                 month: "long",
@@ -161,25 +157,23 @@ export default function CategoryPage({ initialData, category }) {
               )}
             </div>
             <div className="blogpagination">
-              <div className="blogpagination">
-                <button onClick={() => paginate(currentPage - 1)} disabled={currentPage === 1}>
-                  Previous
-                </button>
-                {pageNumbers
-                  .slice(Math.max(currentPage - 3, 0), Math.min(currentPage + 2, pageNumbers.length))
-                  .map((number) => (
-                    <button
-                      key={number}
-                      onClick={() => paginate(number)}
-                      className={currentPage === number ? "active" : ""}
-                    >
-                      {number}
-                    </button>
-                  ))}
-                <button onClick={() => paginate(currentPage + 1)} disabled={currentBlogs.length < perPage}>
-                  Next
-                </button>
-              </div>
+              <button onClick={() => paginate(currentPage - 1)} disabled={currentPage === 1}>
+                Previous
+              </button>
+              {pageNumbers
+                .slice(Math.max(currentPage - 3, 0), Math.min(currentPage + 2, pageNumbers.length))
+                .map((number) => (
+                  <button
+                    key={number}
+                    onClick={() => paginate(number)}
+                    className={currentPage === number ? "active" : ""}
+                  >
+                    {number}
+                  </button>
+                ))}
+              <button onClick={() => paginate(currentPage + 1)} disabled={currentBlogs.length < perPage}>
+                Next
+              </button>
             </div>
           </div>
         </div>
@@ -189,13 +183,12 @@ export default function CategoryPage({ initialData, category }) {
 }
 
 // Fetching data at the server side
-export async function getServerSideProps(context) {
-  const { category } = context.params;
+/* export async function getServerSideProps(context) {
+  const { tags } = context.params;
   let initialData = [];
 
   try {
-    /* const res = await axios.get(`http://localhost:3000/api/getblog?blogcategory=${category}`); */
-    const res = await axios.get(`http://www.beatmastermind.com/api/getblog?blogcategory=${category}`);
+    const res = await axios.get(`http://localhost:3000/api/getblog?tags=${tags}`);
     initialData = res.data;
   } catch (error) {
     console.error("Error fetching blog data", error);
@@ -204,7 +197,8 @@ export async function getServerSideProps(context) {
   return {
     props: {
       initialData,
-      category
+      tag: tags
     }
   };
 }
+ */

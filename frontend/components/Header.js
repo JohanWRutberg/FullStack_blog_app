@@ -1,3 +1,4 @@
+"use client";
 import Link from "next/link";
 import { IoSearchSharp, IoMoonSharp, IoSearch } from "react-icons/io5";
 import { FaXmark } from "react-icons/fa6";
