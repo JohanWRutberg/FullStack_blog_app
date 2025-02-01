@@ -1,4 +1,4 @@
-/* import { Blog } from "@/models/blog";
+import { Blog } from "@/models/blog";
 import { mongooseConnect } from "@/lib/mongoose";
 
 export default async function handler(req, res) {
@@ -59,4 +59,3 @@ export default async function handler(req, res) {
   // Send the sitemap content
   res.status(200).send(sitemap);
 }
- */
