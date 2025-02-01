@@ -14,7 +14,7 @@ export async function generateMetadata({ params }) {
         title: blogData.title,
         description: blogData.description.slice(0, 150),
         image: blogData.image || "/default-image.png",
-        url: `https://www.yoursite.com/blog/${slug}`
+        url: `https://www.beatmastermind.com/blog/${slug}`
       },
       twitter: {
         card: "summary_large_image",
@@ -32,7 +32,7 @@ export async function generateMetadata({ params }) {
       title: "Default Title",
       description: "Default description for the blog",
       image: "/default-image.png",
-      url: `https://www.yoursite.com/blog/${slug}`
+      url: `https://www.beatmastermind.com/blog/${slug}`
     },
     twitter: {
       card: "summary_large_image",
