@@ -1,19 +1,20 @@
 "use client";
+
+import { useState, useEffect } from "react";
 import axios from "axios";
 import Link from "next/link";
 import Image from "next/image";
-import { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
+import ReactMarkdown from "react-markdown";
 import { BsAmazon } from "react-icons/bs";
 import { DiCodeigniter } from "react-icons/di";
 import { GiDrum, GiDrumKit } from "react-icons/gi";
 import { ImHeadphones } from "react-icons/im";
-import ReactMarkdown from "react-markdown";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { dracula } from "react-syntax-highlighter/dist/cjs/styles/prism";
 import remarkGfm from "remark-gfm";
-import Head from "next/head"; // Import the next/head module
+import Head from "next/head";
 
+// Utility functions for extracting images and links from markdown content
 function extractFirstImageUrl(markdownContent) {
   if (!markdownContent || typeof markdownContent !== "string") {
     return null;
@@ -36,46 +37,113 @@ function extractAmazonLinks(markdownContent) {
   return links;
 }
 
-export default function BlogPage({ params }) {
-  const { slug } = params; // Get the 'slug' from the params object
-  const router = useRouter(); // Use for navigation
+// MarkdownLink component to handle external links
+const MarkdownLink = ({ href, children }) => {
+  const isAmazonLink = href.startsWith("https://amzn");
+  return (
+    <a
+      href={href}
+      className={`observed-link ${isAmazonLink ? "amazon-link" : ""}`}
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      {isAmazonLink && (
+        <span className="st_icon_amazon">
+          <BsAmazon />
+        </span>
+      )}
+      {children}
+    </a>
+  );
+};
 
+// Code component for handling code blocks in Markdown
+const Code = ({ node, inline, className, children, ...props }) => {
+  const match = /language-(\w+)/.exec(className || "");
+  const [copied, setCopied] = useState(false);
+
+  const handleCopy = () => {
+    navigator.clipboard.writeText(children);
+    setCopied(true);
+    setTimeout(() => {
+      setCopied(false);
+    }, 3000);
+  };
+
+  if (inline) {
+    return <code>{children}</code>;
+  } else if (match) {
+    return (
+      <div style={{ position: "relative" }}>
+        <SyntaxHighlighter
+          style={dracula}
+          language={match[1]}
+          PreTag="pre"
+          {...props}
+          codeTagProps={{
+            style: {
+              padding: "0",
+              borderRadius: "5px",
+              overflowX: "auto",
+              whiteSpace: "pre-wrap"
+            }
+          }}
+        >
+          {String(children).replace(/\n$/, "")}
+        </SyntaxHighlighter>
+        <button
+          style={{
+            position: "absolute",
+            top: "0",
+            right: "0",
+            zIndex: "1",
+            background: "#3d3d3d",
+            color: "#fff",
+            padding: "10px"
+          }}
+          onClick={handleCopy}
+        >
+          {copied ? "Copied" : "Copy code"}
+        </button>
+      </div>
+    );
+  } else {
+    return (
+      <code className="md-post-code" {...props}>
+        {children}
+      </code>
+    );
+  }
+};
+
+// The main BlogPage component
+export default function BlogPage({ params }) {
+  const { slug } = params;
   const [blog, setBlog] = useState({});
   const [linkDetails, setLinkDetails] = useState([]);
   const [blogPostLinks, setBlogPostLinks] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [readingTime, setReadingTime] = useState(0);
 
   useEffect(() => {
-    // Check if the slug is undefined
-    if (!slug) {
-      console.error("Slug is undefined");
-      router.push("/404"); // Redirect to 404 if slug is undefined
-      return;
-    }
-
     const fetchBlogData = async () => {
       try {
         const res = await axios.get(`${process.env.NEXT_PUBLIC_WEBSITE_URL}/api/getblog?slug=${slug}`);
         const alldata = res.data;
-
         if (!alldata || alldata.length === 0) {
           console.error("No blog data found");
-          router.push("/404"); // Redirect to 404 page if no blog data is found
           return;
         }
 
-        const firstImageUrl = extractFirstImageUrl(alldata[0].description);
-        const blogData = { ...alldata[0], image: firstImageUrl };
-        setBlog(blogData);
+        const blogData = alldata[0];
+        const firstImageUrl = extractFirstImageUrl(blogData.description);
+        setBlog({ ...blogData, image: firstImageUrl });
 
-        // Extract Amazon links from the blog description
         const amazonLinks = extractAmazonLinks(blogData.description);
         setLinkDetails(amazonLinks);
 
-        // Fetch all blog posts for the latest blog list
         const allBlogsRes = await axios.get(`${process.env.NEXT_PUBLIC_WEBSITE_URL}/api/getblog`);
         const allBlogs = allBlogsRes.data;
-
         const sortedBlogs = allBlogs
           .filter((post) => post.status === "publish")
           .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
@@ -88,108 +156,23 @@ export default function BlogPage({ params }) {
           }));
 
         setBlogPostLinks(sortedBlogs);
+
+        const wordsPerMinute = 200;
+        const words = blogData.description ? blogData.description.trim().split(/\s+/).length : 1;
+        setReadingTime(Math.ceil(words / wordsPerMinute));
+
         setLoading(false); // Set loading to false when data is fetched
       } catch (error) {
         console.error("Error fetching blog:", error);
-        router.push("/404"); // Redirect to 404 page in case of an error
       }
     };
 
     fetchBlogData();
-  }, [slug, router]);
+  }, [slug]);
 
   if (loading) {
     return <div>Loading...</div>;
   }
-
-  if (!blog) {
-    return <div>Blog not found</div>;
-  }
-
-  const calculateReadingTime = (text) => {
-    const wordsPerMinute = 200;
-    const words = text.trim().split(/\s+/).length;
-    return Math.ceil(words / wordsPerMinute);
-  };
-
-  const readingTime = blog.description ? calculateReadingTime(blog.description) : 1;
-
-  const Code = ({ node, inline, className, children, ...props }) => {
-    const match = /language-(\w+)/.exec(className || "");
-    const [copied, setCopied] = useState(false);
-
-    const handleCopy = () => {
-      navigator.clipboard.writeText(children);
-      setCopied(true);
-      setTimeout(() => {
-        setCopied(false);
-      }, 3000);
-    };
-
-    if (inline) {
-      return <code>{children}</code>;
-    } else if (match) {
-      return (
-        <div style={{ position: "relative" }}>
-          <SyntaxHighlighter
-            style={dracula}
-            language={match[1]}
-            PreTag="pre"
-            {...props}
-            codeTagProps={{
-              style: {
-                padding: "0",
-                borderRadius: "5px",
-                overflowX: "auto",
-                whiteSpace: "pre-wrap"
-              }
-            }}
-          >
-            {String(children).replace(/\n$/, "")}
-          </SyntaxHighlighter>
-          <button
-            style={{
-              position: "absolute",
-              top: "0",
-              right: "0",
-              zIndex: "1",
-              background: "#3d3d3d",
-              color: "#fff",
-              padding: "10px"
-            }}
-            onClick={handleCopy}
-          >
-            {copied ? "Copied" : "Copy code"}
-          </button>
-        </div>
-      );
-    } else {
-      return (
-        <code className="md-post-code" {...props}>
-          {children}
-        </code>
-      );
-    }
-  };
-
-  const MarkdownLink = ({ href, children }) => {
-    const isAmazonLink = href.startsWith("https://amzn");
-    return (
-      <a
-        href={href}
-        className={`observed-link ${isAmazonLink ? "amazon-link" : ""}`}
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        {isAmazonLink && (
-          <span className="st_icon_amazon">
-            <BsAmazon />
-          </span>
-        )}
-        {children}
-      </a>
-    );
-  };
 
   return (
     <>
@@ -212,7 +195,7 @@ export default function BlogPage({ params }) {
           content={blog.description ? blog.description.slice(0, 150) : "Blog post on Beat MasterMind"}
         />
         <meta property="og:image" content={blog.image || "/default-image.png"} />
-        <meta property="og:url" content={`https://www.beatmastermind.com${router.asPath}`} />
+        <meta property="og:url" content={`https://www.beatmastermind.com/blog/${blog.slug}`} />
 
         {/* Twitter Card */}
         <meta name="twitter:card" content="summary_large_image" />
@@ -362,17 +345,6 @@ export default function BlogPage({ params }) {
           </div>
         </div>
       </div>
-
-      {/* Optional: If you have client-side navigation and want to ensure meta tags update */}
-      <script
-        dangerouslySetInnerHTML={{
-          __html: `
-          if (typeof window !== "undefined") {
-            window.history.pushState({}, '', '${router.asPath}');
-          }
-        `
-        }}
-      />
     </>
   );
 }
