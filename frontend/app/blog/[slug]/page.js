@@ -1,4 +1,5 @@
-"use client";
+// app/blog/[slug]/page.js
+"use client"; // Lägg till den här raden för att markera komponenten som en klientkomponent
 
 import { useState, useEffect } from "react";
 import axios from "axios";
@@ -6,8 +7,8 @@ import Link from "next/link";
 import Image from "next/image";
 import ReactMarkdown from "react-markdown";
 import { BsAmazon } from "react-icons/bs";
-import { DiCodeigniter } from "react-icons/di";
 import { GiDrum, GiDrumKit } from "react-icons/gi";
+import { DiCodeigniter } from "react-icons/di";
 import { ImHeadphones } from "react-icons/im";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { dracula } from "react-syntax-highlighter/dist/cjs/styles/prism";
