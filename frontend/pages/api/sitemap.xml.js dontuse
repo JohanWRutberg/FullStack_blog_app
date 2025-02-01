@@ -1,4 +1,4 @@
-import { Blog } from "@/models/blog";
+/* import { Blog } from "@/models/blog";
 import { mongooseConnect } from "@/lib/mongoose";
 
 export default async function handler(req, res) {
@@ -14,8 +14,8 @@ export default async function handler(req, res) {
   const staticPaths = [
     `${baseUrl}/`,
     `${baseUrl}/blog/`,
-    /* `${baseUrl}/tag/`,
-    `${baseUrl}/topics/`, */
+    `${baseUrl}/tag/`,
+    `${baseUrl}/topics/`,
     `${baseUrl}/contact`, // Add static URL for contact page
     `${baseUrl}/disclaimer`, // Add static URL for disclaimer page
     `${baseUrl}/about` // Add static URL for about page
@@ -59,3 +59,4 @@ export default async function handler(req, res) {
   // Send the sitemap content
   res.status(200).send(sitemap);
 }
+ */

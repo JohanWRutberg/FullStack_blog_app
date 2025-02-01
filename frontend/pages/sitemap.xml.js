@@ -1,4 +1,4 @@
-/* import { getSortedPostsData } from "../lib/mongodb";
+import { getSortedPostsData } from "../lib/mongodb";
 
 const BASE_URL = process.env.NODE_ENV === "development" ? "http://localhost:3000" : "https://www.beatmastermind.com";
 
@@ -122,4 +122,3 @@ export async function getServerSideProps({ res }) {
 export default function SiteMap() {
   return null;
 }
- */
