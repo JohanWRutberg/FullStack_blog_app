@@ -18,7 +18,6 @@ function generateSiteMap(posts) {
   // Create sets to store unique categories and tags
   const uniqueCategories = new Set();
   const uniqueTags = new Set();
-  const blogUrls = [];
 
   // Process each post
   posts.forEach(({ slug, createdAt, blogcategory, tags }) => {
@@ -32,13 +31,13 @@ function generateSiteMap(posts) {
       tags.forEach((tag) => uniqueTags.add(tag));
     }
 
-    // Generate blog URLs and add to blogUrls array
-    blogUrls.push(`
-      <url>
-        <loc>${`${BASE_URL}/blog/${slug}`}</loc>
-        <lastmod>${lastmod}</lastmod>
-      </url>
-    `);
+    // Generate blog URLs
+    const blogUrl = `
+        <url>
+          <loc>${`${BASE_URL}/blog/${slug}`}</loc>
+          <lastmod>${lastmod}</lastmod>
+        </url>
+      `;
   });
 
   // Create URL entries for unique categories
@@ -80,7 +79,17 @@ function generateSiteMap(posts) {
         <url>
           <loc>${BASE_URL}/disclaimer</loc>
         </url>
-        ${blogUrls.join("")}  <!-- Include blog URLs here -->
+        ${posts
+          .map(({ slug, createdAt }) => {
+            const lastmod = createdAt ? formatDate(createdAt) : "2024-01-01";
+            return `
+              <url>
+                <loc>${`${BASE_URL}/blog/${slug}`}</loc>
+                <lastmod>${lastmod}</lastmod>
+              </url>
+            `;
+          })
+          .join("")}
         ${categoryUrls}
         ${tagUrls}
       </urlset>

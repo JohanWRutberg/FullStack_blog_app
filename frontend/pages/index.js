@@ -1,4 +1,3 @@
-"use client";
 import useFetchData from "@/hooks/useFetchData";
 import Head from "next/head";
 import Link from "next/link";
@@ -25,7 +24,7 @@ export default function Home() {
   const indexOfFirstblog = indexOfLastblog - perPage;
   const currentBlogs = alldata.slice(indexOfFirstblog, indexOfLastblog);
 
-  /* const allblog = alldata.length; */
+  const allblog = alldata.length;
 
   // Filter published blogs from all blogs
   const publishedblogs = alldata.filter((ab) => ab.status === "publish");
@@ -36,7 +35,6 @@ export default function Home() {
   const totalPages = Math.ceil(totalPublishedBlogs / perPage);
 
   const pageNumbers = [];
-
   for (let i = 1; i <= totalPages; i++) {
     pageNumbers.push(i);
   }
@@ -58,7 +56,7 @@ export default function Home() {
     if (!text) return "";
     const cleanedText = removeSpecialCharacters(text);
     const words = cleanedText.split(" ");
-    return words.slice(0, 15).join(" ") + "...";
+    return words.slice(0, 30).join(" ") + "...";
   }
 
   return (
