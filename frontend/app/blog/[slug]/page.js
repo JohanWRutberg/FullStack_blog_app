@@ -204,6 +204,8 @@ export default function BlogPage({ params }) {
           }
         />
         <meta name="keywords" content={blog.title || "Blog post"} />
+
+        {/* Open Graph */}
         <meta property="og:title" content={blog.title || "Blog Post"} />
         <meta
           property="og:description"
@@ -211,6 +213,8 @@ export default function BlogPage({ params }) {
         />
         <meta property="og:image" content={blog.image || "/default-image.png"} />
         <meta property="og:url" content={`https://www.beatmastermind.com${router.asPath}`} />
+
+        {/* Twitter Card */}
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content={blog.title || "Blog Post"} />
         <meta
