@@ -268,7 +268,7 @@ export default function BlogPage({ blog = {}, blogPostLinks = [] }) {
                     </ul>
                   </div>
                 </div>
-                <div className="slug_aff_img mt-15">
+                {/* <div className="slug_aff_img mt-15">
                   <p>
                     As an Amazon Associate, we earn from qualifying purchases. This means that if you click on a link to
                     an Amazon product on this site and make a purchase, we may receive a commission at no additional
@@ -277,7 +277,7 @@ export default function BlogPage({ blog = {}, blogPostLinks = [] }) {
                     <br />
                     Thank you for your support!
                   </p>
-                </div>
+                </div> */}
               </div>
               <div className="topics_sec">
                 <h2>Latest Blog Posts</h2>
