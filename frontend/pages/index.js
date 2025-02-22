@@ -170,7 +170,7 @@ export default function Home() {
                           <p>{getFirstWords(blog.description)}</p>
                           <div className="blogauthor flex gap-1">
                             <div className="blogaimg">
-                              <Image src="/img/Beat_Master.PNG" alt="logo" height={50} width={50} />
+                              <Image className="logo" src="/img/Beat_Master.PNG" alt="logo" height={50} width={50} />
                             </div>
                             <div className="flex flex-col flex-left gap-05">
                               <h4>Beat MasterMind</h4>

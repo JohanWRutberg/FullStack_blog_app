@@ -1392,6 +1392,10 @@ button {
   cursor: pointer;
 }
 
+.st_icon svg {
+  font-size: 24px;
+}
+
 /* Hover effect for all icons (change fill to white) */
 .st_icon:hover svg {
   fill: #fff !important; /* Change icon color to white on hover */
@@ -1400,11 +1404,6 @@ button {
 /* Hover effect for background */
 .st_icon:hover {
   background-color: #667eea;
-}
-
-/* Adjust svg size if needed */
-.st_icon svg {
-  font-size: 24px; /* Adjust size */
 }
 
 /* st_icon_blog */
@@ -1541,18 +1540,18 @@ a:hover .st_icon_amazon,
 
 .footer .container {
   display: flex;
-  flex-wrap: wrap; /* Enables wrapping for better responsiveness */
-  justify-content: space-between; /* Space between items */
-  align-items: flex-start; /* Ensure content is aligned at the top */
-  gap: 2rem; /* Add spacing between elements */
-  max-width: 1200px; /* Limit max width for readability */
-  margin: 0 auto; /* Center container */
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
 .footer_logo,
 .q_links,
 .q_links.affiliate_disclaimer {
-  flex: 1 1 calc(25% - 3rem); /* Flexible width with space for gap */
+  flex: 1 1 calc(25% - 3rem);
   padding: 1rem;
   text-align: left;
 }
@@ -1560,7 +1559,7 @@ a:hover .st_icon_amazon,
 .footer_logo img {
   width: 100px;
   height: auto;
-  margin-bottom: 1rem; /* Spacing below logo */
+  margin-bottom: 1rem;
 }
 
 .footer_logo h4,
