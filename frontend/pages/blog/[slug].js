@@ -28,7 +28,9 @@ export async function getServerSideProps(context) {
 
   try {
     // Fetch the specific blog post based on the slug
-    const res = await axios.get(`${process.env.NEXT_WEBSITE_URL}/api/getblog?slug=${slug}`);
+    const res = await axios.get(
+      `${process.env.NEXT_WEBSITE_URL}/api/getblog?slug=${slug}`
+    );
     const alldata = res.data;
 
     if (!alldata || alldata.length === 0) {
@@ -40,21 +42,23 @@ export async function getServerSideProps(context) {
     const blog = { ...alldata[0], image: firstImageUrl };
 
     // Fetch all blog posts for backlinks
-    const resAllBlogs = await axios.get(`${process.env.NEXT_WEBSITE_URL}/api/getblog`);
+    const resAllBlogs = await axios.get(
+      `${process.env.NEXT_WEBSITE_URL}/api/getblog`
+    );
     const blogPosts = resAllBlogs.data;
     const blogPostLinks = blogPosts.map((post) => ({
       href: `/blog/${post.slug}`,
       alt: post.title,
       image: extractFirstImageUrl(post.description),
       status: post.status,
-      createdAt: post.createdAt
+      createdAt: post.createdAt,
     }));
 
     return {
       props: {
         blog,
-        blogPostLinks
-      }
+        blogPostLinks,
+      },
     };
   } catch (error) {
     console.error("Error fetching blog", error);
@@ -77,7 +81,9 @@ export default function BlogPage({ blog = {}, blogPostLinks = [] }) {
     return Math.ceil(words / wordsPerMinute);
   }
 
-  const readingTime = blog.description ? calculateReadingTime(blog.description) : 1;
+  const readingTime = blog.description
+    ? calculateReadingTime(blog.description)
+    : 1;
 
   // Collect Amazon affiliate links
   const [linkDetails, setLinkDetails] = useState([]);
@@ -87,7 +93,7 @@ export default function BlogPage({ blog = {}, blogPostLinks = [] }) {
       const details = Array.from(links)
         .map((link) => ({
           alt: link.getAttribute("alt") || link.href,
-          href: link.href
+          href: link.href,
         }))
         .filter((link) => link.href.includes("https://amzn"));
       setLinkDetails(details);
@@ -123,8 +129,8 @@ export default function BlogPage({ blog = {}, blogPostLinks = [] }) {
                 padding: "0",
                 borderRadius: "5px",
                 overflowX: "auto",
-                whiteSpace: "pre-wrap"
-              }
+                whiteSpace: "pre-wrap",
+              },
             }}
           >
             {String(children).replace(/\n$/, "")}
@@ -137,7 +143,7 @@ export default function BlogPage({ blog = {}, blogPostLinks = [] }) {
               zIndex: "1",
               background: "#3d3d3d",
               color: "#fff",
-              padding: "10px"
+              padding: "10px",
             }}
             onClick={handleCopy}
           >
@@ -170,17 +176,34 @@ export default function BlogPage({ blog = {}, blogPostLinks = [] }) {
         <meta property="og:title" content={blog.title || "Blog Post"} />
         <meta
           property="og:description"
-          content={blog.description ? blog.description.slice(0, 150) : "Blog post on Beat MasterMind"}
+          content={
+            blog.description
+              ? blog.description.slice(0, 150)
+              : "Blog post on Beat MasterMind"
+          }
         />
-        <meta property="og:image" content={blog.image || "/default-image.png"} />
-        <meta property="og:url" content={`https://www.beatmastermind.com${router.asPath}`} />
+        <meta
+          property="og:image"
+          content={blog.image || "/default-image.png"}
+        />
+        <meta
+          property="og:url"
+          content={`https://www.beatmastermind.com${router.asPath}`}
+        />
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content={blog.title || "Blog Post"} />
         <meta
           name="twitter:description"
-          content={blog.description ? blog.description.slice(0, 150) : "Blog post on Beat MasterMind"}
+          content={
+            blog.description
+              ? blog.description.slice(0, 150)
+              : "Blog post on Beat MasterMind"
+          }
         />
-        <meta name="twitter:image" content={blog.image || "/default-image.png"} />
+        <meta
+          name="twitter:image"
+          content={blog.image || "/default-image.png"}
+        />
       </Head>
 
       <div className="slugpage">
@@ -188,12 +211,12 @@ export default function BlogPage({ blog = {}, blogPostLinks = [] }) {
           <div className="topslug_titles">
             <h1 className="slugtitle">{blog.title || "Untitled Post"}</h1>
             <h5>
-              By <span>Beat MasterMind</span>.{" "}
-              {blog.createdAt
-                ? new Date(blog.createdAt).toLocaleDateString("en-US", {
-                    month: "long",
+              By <span>Beat MasterMind</span>. Updated:{" "}
+              {blog.updatedAt
+                ? new Date(blog.updatedAt).toLocaleDateString("en-US", {
+                    month: "short",
                     day: "numeric",
-                    year: "numeric"
+                    year: "numeric",
                   })
                 : "Unknown Date"}{" "}
               - <span>{readingTime} min read</span>
@@ -211,7 +234,9 @@ export default function BlogPage({ blog = {}, blogPostLinks = [] }) {
                       return (
                         <a
                           href={href}
-                          className={`observed-link ${isAmazonLink ? "amazon-link" : ""}`}
+                          className={`observed-link ${
+                            isAmazonLink ? "amazon-link" : ""
+                          }`}
                           alt={children}
                           target={isAmazonLink ? "_blank" : "_self"}
                           rel={isAmazonLink ? "noopener noreferrer" : undefined}
@@ -225,7 +250,7 @@ export default function BlogPage({ blog = {}, blogPostLinks = [] }) {
                         </a>
                       );
                     },
-                    code: Code
+                    code: Code,
                   }}
                 >
                   {blog.description}
@@ -254,7 +279,11 @@ export default function BlogPage({ blog = {}, blogPostLinks = [] }) {
                       {linkDetails.map((link, index) => (
                         <li key={index}>
                           <Link href={link.href} legacyBehavior>
-                            <a className="flex flex-left" target="_blank" rel="noopener noreferrer">
+                            <a
+                              className="flex flex-left"
+                              target="_blank"
+                              rel="noopener noreferrer"
+                            >
                               <div className="social_talks">
                                 <div className="st_icon_amazon">
                                   <BsAmazon />
@@ -288,7 +317,10 @@ export default function BlogPage({ blog = {}, blogPostLinks = [] }) {
                       <ul>
                         {blogPostLinks
                           .filter((link) => link.status === "publish")
-                          .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
+                          .sort(
+                            (a, b) =>
+                              new Date(b.createdAt) - new Date(a.createdAt)
+                          )
                           .slice(0, 5)
                           .map((link, index) => (
                             <li key={index}>
@@ -304,7 +336,9 @@ export default function BlogPage({ blog = {}, blogPostLinks = [] }) {
                                       />
                                     </div>
                                   </div>
-                                  <span className="blog-link-alt">{link.alt}</span>
+                                  <span className="blog-link-alt">
+                                    {link.alt}
+                                  </span>
                                 </a>
                               </Link>
                             </li>
@@ -368,7 +402,7 @@ export default function BlogPage({ blog = {}, blogPostLinks = [] }) {
           if (typeof window !== "undefined") {
             window.history.pushState({}, '', '${router.asPath}');
           }
-        `
+        `,
         }}
       />
     </>

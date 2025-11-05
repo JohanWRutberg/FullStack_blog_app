@@ -63,21 +63,39 @@ export default function Home() {
     <>
       <Head>
         <title>Beat MasterMind</title>
-        <meta name="description" content="Beat MasterMind - Blog about Electronic drums and accessories!" />
+        <meta
+          name="description"
+          content="Beat MasterMind - Blog about Electronic drums and accessories!"
+        />
         {/* Facebook Meta Tags */}
         <meta property="og:url" content="https://www.beatmastermind.com/" />
         <meta property="og:type" content="website" />
         <meta property="og:title" content="Beat MasterMind Blog" />
-        <meta property="og:description" content="Beat MasterMind - Blog about Electronic drums and accessories!" />
-        <meta property="og:image" content="https://beatmastermind.com/logo_1250_1250.png" />
+        <meta
+          property="og:description"
+          content="Beat MasterMind - Blog about Electronic drums and accessories!"
+        />
+        <meta
+          property="og:image"
+          content="https://beatmastermind.com/logo_1250_1250.png"
+        />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         {/* Twitter Meta Tags */}
         <meta name="twitter:card" content="summary_large_image" />
         <meta property="twitter:domain" content="beatmastermind.com" />
-        <meta property="twitter:url" content="https://www.beatmastermind.com/" />
+        <meta
+          property="twitter:url"
+          content="https://www.beatmastermind.com/"
+        />
         <meta name="twitter:title" content="Beat MasterMind" />
-        <meta name="twitter:description" content="Beat MasterMind - Blog about Electronic drums and accessories!" />
-        <meta name="twitter:image" content="https://beatmastermind.com/logo_1250_1250.png"></meta>
+        <meta
+          name="twitter:description"
+          content="Beat MasterMind - Blog about Electronic drums and accessories!"
+        />
+        <meta
+          name="twitter:image"
+          content="https://beatmastermind.com/logo_1250_1250.png"
+        ></meta>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.png" />
 
@@ -86,7 +104,8 @@ export default function Home() {
             "@context": "https://schema.org",
             "@type": "VideoObject",
             name: "Beat MasterMind Video",
-            description: "An introduction to Beat MasterMind - Your electronic drums expert.",
+            description:
+              "An introduction to Beat MasterMind - Your electronic drums expert.",
             thumbnailUrl: "https://www.beatmastermind.com/video_thumbnail.jpg",
             uploadDate: "2023-12-31T12:00:00+00:00",
             contentUrl: "https://www.beatmastermind.com/Beat_MasterMind.mp4",
@@ -96,15 +115,21 @@ export default function Home() {
               name: "Beat MasterMind",
               logo: {
                 "@type": "ImageObject",
-                url: "https://www.beatmastermind.com/favicon.png"
-              }
-            }
+                url: "https://www.beatmastermind.com/favicon.png",
+              },
+            },
           })}
         </script>
       </Head>
 
       <section className="header_data_section">
-        <video autoPlay loop muted playsInline className="background-video opacity-90">
+        <video
+          autoPlay
+          loop
+          muted
+          playsInline
+          className="background-video opacity-90"
+        >
           <source src="/Beat_MasterMind.mp4" type="video/mp4" />
           Your browser does not support the video tag.
         </video>
@@ -146,54 +171,91 @@ export default function Home() {
                 </div>
               ) : (
                 <>
-                  {publishedblogs.slice(indexOfFirstblog, indexOfLastblog).map((blog) => {
-                    const firstImageUrl = extractFirstImageUrl(blog.description);
-                    return (
-                      <div className="blog flex" key={blog._id}>
-                        <div className="blogimg">
-                          <Link href={`/blog/${blog.slug}`}>
-                            <Image
-                              src={firstImageUrl || "/img/noimage.jpg"}
-                              alt={blog.title}
-                              width={800}
-                              height={600}
-                            />
-                          </Link>
-                        </div>
-                        <div className="bloginfo">
-                          <Link href={`/tag/${blog.tags[0]}`}>
-                            <div className="blogtag">{blog.tags[0]}</div>
-                          </Link>
-                          <Link href={`/blog/${blog.slug}`}>
-                            <h3>{blog.title}</h3>
-                          </Link>
-                          <p>{getFirstWords(blog.description)}</p>
-                          <div className="blogauthor flex gap-1">
-                            <div className="blogaimg">
-                              <Image className="logo" src="/img/Beat_Master.PNG" alt="logo" height={50} width={50} />
-                            </div>
-                            <div className="flex flex-col flex-left gap-05">
-                              <h4>Beat MasterMind</h4>
-                              <span>
-                                {new Date(blog.createdAt).toLocaleDateString("en-US", {
-                                  month: "long",
-                                  day: "numeric",
-                                  year: "numeric"
-                                })}
-                              </span>
+                  {publishedblogs
+                    .slice(indexOfFirstblog, indexOfLastblog)
+                    .map((blog) => {
+                      const firstImageUrl = extractFirstImageUrl(
+                        blog.description
+                      );
+                      return (
+                        <div className="blog flex" key={blog._id}>
+                          <div className="blogimg">
+                            <Link href={`/blog/${blog.slug}`}>
+                              <Image
+                                src={firstImageUrl || "/img/noimage.jpg"}
+                                alt={blog.title}
+                                width={800}
+                                height={600}
+                              />
+                            </Link>
+                          </div>
+                          <div className="bloginfo">
+                            <Link href={`/tag/${blog.tags[0]}`}>
+                              <div className="blogtag">{blog.tags[0]}</div>
+                            </Link>
+                            <Link href={`/blog/${blog.slug}`}>
+                              <h3>{blog.title}</h3>
+                            </Link>
+                            <p>{getFirstWords(blog.description)}</p>
+                            <div className="blogauthor flex gap-1">
+                              <div className="blogaimg">
+                                <Image
+                                  className="logo"
+                                  src="/img/Beat_Master.PNG"
+                                  alt="logo"
+                                  height={50}
+                                  width={50}
+                                />
+                              </div>
+                              <div className="flex flex-col flex-left gap-05">
+                                <h4>Beat MasterMind</h4>
+                                {/* <span>
+                                  Created:{" "}
+                                  {new Date(blog.createdAt).toLocaleDateString(
+                                    "en-US",
+                                    {
+                                      month: "long",
+                                      day: "numeric",
+                                      year: "numeric",
+                                    }
+                                  )}
+                                </span> */}
+                                <span>
+                                  Created:{" "}
+                                  {new Date(blog.createdAt).toLocaleDateString(
+                                    "en-US",
+                                    {
+                                      month: "short",
+                                      day: "numeric",
+                                      year: "numeric",
+                                    }
+                                  )}
+                                  , Updated:{" "}
+                                  {new Date(blog.updatedAt).toLocaleDateString(
+                                    "en-US",
+                                    {
+                                      month: "short",
+                                      day: "numeric",
+                                      year: "numeric",
+                                    }
+                                  )}
+                                </span>
+                              </div>
                             </div>
                           </div>
                         </div>
-                      </div>
-                    );
-                  })}
+                      );
+                    })}
                 </>
               )}
             </div>
 
             {/* Pagination */}
             <div className="blogpagination">
-              <button onClick={() => paginate(currentPage - 1)} disabled={currentPage === 1}>
+              <button
+                onClick={() => paginate(currentPage - 1)}
+                disabled={currentPage === 1}
+              >
                 Previous
               </button>
               {pageNumbers.map((number) => (
@@ -207,7 +269,9 @@ export default function Home() {
               ))}
               <button
                 onClick={() => paginate(currentPage + 1)}
-                disabled={currentPage === totalPages || publishedblogs.length < perPage}
+                disabled={
+                  currentPage === totalPages || publishedblogs.length < perPage
+                }
               >
                 Next
               </button>
@@ -289,17 +353,28 @@ export default function Home() {
               <h2>Let's Talk</h2>
               <div className="talk_sec">
                 <h4 className="text-center">
-                  Visit our social media platforms and share your experience with vehicle tents!
+                  Visit our social media platforms and share your experience
+                  with vehicle tents!
                 </h4>
                 <div className="social_talks flex flex-center gap-1 mt-2">
                   <div className="st_icon">
-                    <Link href="https://www.instagram.com/beatmastermind" target="_blank">
-                      <FaInstagram style={{ color: "#de3fac", fontSize: "30px" }} />
+                    <Link
+                      href="https://www.instagram.com/beatmastermind"
+                      target="_blank"
+                    >
+                      <FaInstagram
+                        style={{ color: "#de3fac", fontSize: "30px" }}
+                      />
                     </Link>
                   </div>
                   <div className="st_icon">
-                    <Link href="https://se.pinterest.com/beatmastermindaff/" target="_blank">
-                      <FaPinterestP style={{ color: "#e60023", fontSize: "30px" }} />
+                    <Link
+                      href="https://se.pinterest.com/beatmastermindaff/"
+                      target="_blank"
+                    >
+                      <FaPinterestP
+                        style={{ color: "#e60023", fontSize: "30px" }}
+                      />
                     </Link>
                   </div>
                 </div>
