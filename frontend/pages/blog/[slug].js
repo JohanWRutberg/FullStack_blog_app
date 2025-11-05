@@ -214,7 +214,7 @@ export default function BlogPage({ blog = {}, blogPostLinks = [] }) {
               By <span>Beat MasterMind</span>. Updated:{" "}
               {blog.updatedAt
                 ? new Date(blog.updatedAt).toLocaleDateString("en-US", {
-                    month: "short",
+                    month: "long",
                     day: "numeric",
                     year: "numeric",
                   })
