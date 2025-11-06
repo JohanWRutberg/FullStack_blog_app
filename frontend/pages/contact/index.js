@@ -125,6 +125,7 @@ const Contact = () => {
         />
         <meta
           name="description"
+          key="description"
           content="Have questions about electronic drums or accessories? Get in touch with the experts at Beat Mastermind today!"
         />
       </Head>

@@ -69,6 +69,7 @@ export default function Home() {
         />
         <meta
           name="description"
+          key="description"
           content="Beat MasterMind - Blog about Electronic drums and accessories!"
         />
         {/* Facebook Meta Tags */}

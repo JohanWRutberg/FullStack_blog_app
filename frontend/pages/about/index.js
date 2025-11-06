@@ -12,6 +12,7 @@ export default function AboutPage() {
         />
         <meta
           name="description"
+          key="description"
           content="Learn about Beat Mastermind, the ultimate resource for drummers seeking expert advice on electronic drums and accessories."
         />
 

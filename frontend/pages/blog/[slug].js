@@ -173,6 +173,7 @@ export default function BlogPage({ blog = {}, blogPostLinks = [], canonicalUrl }
         />
         <meta
           name="description"
+          key="description"
           content={
             blog.description
               ? blog.description.slice(0, 150)

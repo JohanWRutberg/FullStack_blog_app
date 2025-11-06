@@ -48,10 +48,7 @@ export default function Document() {
         <meta charSet="UTF-8" />
         <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
         <meta name="author" content="Beat MasterMind" />
-        <meta
-          name="description"
-          content="Discover top-rated electronic drum sets and pads. Find the most expensive electronic drum set in the world and affordable options like the Alesis Strike Pro Special Edition. Learn how to install caster rollers and stop floor vibrations."
-        />
+        {/* Meta description removed here so individual pages can provide their own description and avoid duplicates. */}
         <meta
           name="keywords"
           content="electronic drums, Alesis Strike Pro, Yamaha drum kit, drum pads, best electronic drums, used electronic drum set, beginner electronic drum kit"

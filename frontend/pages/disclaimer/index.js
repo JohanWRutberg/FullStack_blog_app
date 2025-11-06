@@ -10,7 +10,7 @@ export default function DisclaimerPage() {
           rel="canonical"
           href={`${process.env.NEXT_PUBLIC_SITE_URL || "https://www.beatmastermind.com"}/disclaimer`}
         />
-        <meta name="description" content="Learn more about Beat MasterMind and our mission." />
+  <meta name="description" key="description" content="Learn more about Beat MasterMind and our mission." />
 
         {/* Open Graph Metadata */}
         <meta property="og:title" content="Disclaimer | Beat MasterMind" />
