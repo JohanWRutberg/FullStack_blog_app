@@ -62,7 +62,7 @@ export default function Home() {
   return (
     <>
       <Head>
-        <title>Beat MasterMind</title>
+        <title>Beat MasterMind - Electronic Drums Expert</title>
         <link
           rel="canonical"
           href={
@@ -72,7 +72,7 @@ export default function Home() {
         <meta
           name="description"
           key="description"
-          content="Beat MasterMind - Blog about Electronic drums and accessories!"
+          content="Beat MasterMind - Your trusted expert in electronic drums, offering comprehensive guides and reviews for electronic drum sets and accessories."
         />
         {/* Facebook Meta Tags */}
         <meta
@@ -82,10 +82,10 @@ export default function Home() {
           }/`}
         />
         <meta property="og:type" content="website" />
-        <meta property="og:title" content="Beat MasterMind Blog" />
+        <meta property="og:title" content="Beat MasterMind - Electronic Drums Expert" />
         <meta
           property="og:description"
-          content="Beat MasterMind - Blog about Electronic drums and accessories!"
+          content="Your trusted expert in electronic drums, offering comprehensive guides and reviews for electronic drum sets and accessories."
         />
         <meta
           property="og:image"
