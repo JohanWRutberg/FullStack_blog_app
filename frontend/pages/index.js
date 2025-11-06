@@ -72,7 +72,7 @@ export default function Home() {
         <meta
           name="description"
           key="description"
-          content="Beat MasterMind - Your trusted expert in electronic drums, offering comprehensive guides and reviews for electronic drum sets and accessories."
+          content="Beat MasterMind - Your trusted expert in electronic drums, offering comprehensive guides and reviews for electronic drum sets and accessories. Discover top tips, comparisons, and in-depth analysis to help you make informed decisions about your electronic drumming journey."
         />
         {/* Facebook Meta Tags */}
         <meta
@@ -85,7 +85,7 @@ export default function Home() {
         <meta property="og:title" content="Beat MasterMind - Electronic Drums Expert" />
         <meta
           property="og:description"
-          content="Your trusted expert in electronic drums, offering comprehensive guides and reviews for electronic drum sets and accessories."
+          content="Your trusted expert in electronic drums, offering comprehensive guides and reviews for electronic drum sets and accessories. Discover top tips, comparisons, and in-depth analysis to help you make informed decisions."
         />
         <meta
           property="og:image"
