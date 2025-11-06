@@ -139,7 +139,7 @@ const Contact = () => {
               exit="hidden"
               className="text-2xl font-semibold text-center text-gray-800 mb-6"
             >
-              <h1 className="text-accent">Connect </h1>with us
+              <h1 className="text-accent">Connect with Beat MasterMind</h1>
             </motion.h2>
             <motion.form
               onSubmit={handleSubmit}

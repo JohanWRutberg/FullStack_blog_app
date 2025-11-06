@@ -191,7 +191,7 @@ export default function Home() {
             </div>
             <div className="right_salescont" data-aos="fade-up">
               <div>
-                <h3>Blogs by category</h3>
+                <h3>Content Categories</h3>
                 <ul className="creative-dots">
                   <li className="big-dot"></li>
                   <li className="semi-big-dot"></li>

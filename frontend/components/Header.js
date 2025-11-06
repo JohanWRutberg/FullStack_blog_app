@@ -83,7 +83,9 @@ export default function Header() {
   const filteredBlogs =
     searchQuery.trim() === ""
       ? publishedblogs
-      : publishedblogs.filter((blog) => blog.title.toLowerCase().includes(searchQuery.toLowerCase()));
+      : publishedblogs.filter((blog) =>
+          blog.title.toLowerCase().includes(searchQuery.toLowerCase())
+        );
 
   return (
     <>
@@ -91,7 +93,12 @@ export default function Header() {
         <div className="container header">
           <div className="header_logo">
             <Link href="/">
-              <Image src="/img/Logo/BeatMaster_3.PNG" alt="logo" width={100} height={100} />
+              <Image
+                src="/img/Logo/BeatMaster_3.PNG"
+                alt="logo"
+                width={100}
+                height={100}
+              />
             </Link>
           </div>
           <div className="searchbar">
@@ -125,7 +132,9 @@ export default function Header() {
             </ul>
             {/* For mobile devices */}
             <div className="navlist_mobile_ul">
-              <button onClick={toggleDarkMode}>{darkMode ? <IoMoonSharp /> : <LuSun />}</button>
+              <button onClick={toggleDarkMode}>
+                {darkMode ? <IoMoonSharp /> : <LuSun />}
+              </button>
               <button onClick={openSearch}>
                 <IoSearch />
               </button>
@@ -135,7 +144,11 @@ export default function Header() {
             </div>
             <div className="darkmode">
               <label className="switch">
-                <input type="checkbox" checked={darkMode} onChange={toggleDarkMode} />
+                <input
+                  type="checkbox"
+                  checked={darkMode}
+                  onChange={toggleDarkMode}
+                />
                 <span className="slider_header"></span>
               </label>
             </div>
@@ -162,7 +175,12 @@ export default function Header() {
                   <>
                     {filteredBlogs.slice(0, 3).map((blog) => {
                       return (
-                        <Link onClick={closeSearch} className="blog" key={blog._id} href={`/blog/${blog.slug}`}>
+                        <Link
+                          onClick={closeSearch}
+                          className="blog"
+                          key={blog._id}
+                          href={`/blog/${blog.slug}`}
+                        >
                           <div className="bloginfo">
                             <div>
                               <h3>{blog.slug}</h3>
@@ -190,13 +208,13 @@ export default function Header() {
         {/* Mobile navlist */}
         <div className={aside ? `navlist_mobile open` : "navlist_mobile"}>
           <div className="navlist_m_title flex flex-sb">
-            <h2 className="mt-1 text-xl text-[#667EEA]">Beat MasterMind Blog</h2>
+            <h2 className="mt-1 text-xl text-[#667EEA]">Navigation</h2>
             <button onClick={asideClose}>
               <FaXmark />
             </button>
           </div>
           <hr />
-          <h3 className="mt-2 text-xl text-[#667EEA]">Main Menu</h3>
+          <h3 className="mt-2 text-xl text-[#667EEA]">Menu</h3>
           <ul onClick={handleLinkClick}>
             <li>
               <Link href="/" className="text-md hover:text-[#667EEA]">
@@ -215,20 +233,29 @@ export default function Header() {
             </li>
           </ul>
           <hr />
-          <h3 className="mt-2 text-xl text-[#667EEA]">Topics</h3>
+          <h3 className="mt-2 text-xl text-[#667EEA]">Categories</h3>
           <ul onClick={handleLinkClick}>
             <li>
-              <Link href="/topics/drumsets" className="text-md hover:text-[#667EEA]">
+              <Link
+                href="/topics/drumsets"
+                className="text-md hover:text-[#667EEA]"
+              >
                 Drum Sets
               </Link>
             </li>
             <li>
-              <Link href="/topics/accessories" className="text-md hover:text-[#667EEA]">
+              <Link
+                href="/topics/accessories"
+                className="text-md hover:text-[#667EEA]"
+              >
                 Accessories
               </Link>
             </li>
             <li>
-              <Link href="/topics/sound" className="text-md hover:text-[#667EEA]">
+              <Link
+                href="/topics/sound"
+                className="text-md hover:text-[#667EEA]"
+              >
                 Sound
               </Link>
             </li>

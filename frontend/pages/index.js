@@ -63,9 +63,11 @@ export default function Home() {
     <>
       <Head>
         <title>Beat MasterMind</title>
-        <link 
-          rel="canonical" 
-          href={process.env.NEXT_PUBLIC_SITE_URL || "https://www.beatmastermind.com"}
+        <link
+          rel="canonical"
+          href={
+            process.env.NEXT_PUBLIC_SITE_URL || "https://www.beatmastermind.com"
+          }
         />
         <meta
           name="description"
@@ -73,7 +75,12 @@ export default function Home() {
           content="Beat MasterMind - Blog about Electronic drums and accessories!"
         />
         {/* Facebook Meta Tags */}
-  <meta property="og:url" content={`${process.env.NEXT_PUBLIC_SITE_URL || "https://www.beatmastermind.com"}/`} />
+        <meta
+          property="og:url"
+          content={`${
+            process.env.NEXT_PUBLIC_SITE_URL || "https://www.beatmastermind.com"
+          }/`}
+        />
         <meta property="og:type" content="website" />
         <meta property="og:title" content="Beat MasterMind Blog" />
         <meta
@@ -82,7 +89,9 @@ export default function Home() {
         />
         <meta
           property="og:image"
-          content={`${process.env.NEXT_PUBLIC_SITE_URL || "https://www.beatmastermind.com"}/logo_1250_1250.png`}
+          content={`${
+            process.env.NEXT_PUBLIC_SITE_URL || "https://www.beatmastermind.com"
+          }/logo_1250_1250.png`}
         />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         {/* Twitter Meta Tags */}
@@ -90,7 +99,9 @@ export default function Home() {
         <meta property="twitter:domain" content="beatmastermind.com" />
         <meta
           property="twitter:url"
-          content={`${process.env.NEXT_PUBLIC_SITE_URL || "https://www.beatmastermind.com"}/`}
+          content={`${
+            process.env.NEXT_PUBLIC_SITE_URL || "https://www.beatmastermind.com"
+          }/`}
         />
         <meta name="twitter:title" content="Beat MasterMind" />
         <meta
@@ -99,7 +110,9 @@ export default function Home() {
         />
         <meta
           name="twitter:image"
-          content={`${process.env.NEXT_PUBLIC_SITE_URL || "https://www.beatmastermind.com"}/logo_1250_1250.png`}
+          content={`${
+            process.env.NEXT_PUBLIC_SITE_URL || "https://www.beatmastermind.com"
+          }/logo_1250_1250.png`}
         ></meta>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.png" />
@@ -111,16 +124,28 @@ export default function Home() {
             name: "Beat MasterMind Video",
             description:
               "An introduction to Beat MasterMind - Your electronic drums expert.",
-            thumbnailUrl: `${process.env.NEXT_PUBLIC_SITE_URL || "https://www.beatmastermind.com"}/video_thumbnail.jpg`,
+            thumbnailUrl: `${
+              process.env.NEXT_PUBLIC_SITE_URL ||
+              "https://www.beatmastermind.com"
+            }/video_thumbnail.jpg`,
             uploadDate: "2023-12-31T12:00:00+00:00",
-            contentUrl: `${process.env.NEXT_PUBLIC_SITE_URL || "https://www.beatmastermind.com"}/Beat_MasterMind.mp4`,
-            embedUrl: `${process.env.NEXT_PUBLIC_SITE_URL || "https://www.beatmastermind.com"}`,
+            contentUrl: `${
+              process.env.NEXT_PUBLIC_SITE_URL ||
+              "https://www.beatmastermind.com"
+            }/Beat_MasterMind.mp4`,
+            embedUrl: `${
+              process.env.NEXT_PUBLIC_SITE_URL ||
+              "https://www.beatmastermind.com"
+            }`,
             publisher: {
               "@type": "Organization",
               name: "Beat MasterMind",
               logo: {
                 "@type": "ImageObject",
-                url: `${process.env.NEXT_PUBLIC_SITE_URL || "https://www.beatmastermind.com"}/favicon.png`,
+                url: `${
+                  process.env.NEXT_PUBLIC_SITE_URL ||
+                  "https://www.beatmastermind.com"
+                }/favicon.png`,
               },
             },
           })}
@@ -149,8 +174,9 @@ export default function Home() {
         <div className="header-container flex flex-sb w-100">
           <div className="leftheader_info">
             <h1 data-aos="fade-right">
-              Beat <span>MasterMind</span>.
+              Beat <span>MasterMind</span>
               <br />
+              Electronic Drums
             </h1>
             <h3 data-aos="fade-right">Your electronic drums expert</h3>
             <div className="flex gap-2">
@@ -168,7 +194,7 @@ export default function Home() {
       <section className="main_blog_section">
         <div className="container flex flex-sb flex-left flex-wrap">
           <div className="leftblog_sec">
-            <h2>Recently Published</h2>
+            <h2>Latest Articles</h2>
             <div className="blogs_sec">
               {loading ? (
                 <div className="wh-100 flex flex-center mt-2 pb-5">
@@ -323,7 +349,7 @@ export default function Home() {
               </div>
             </div>
             <div className="tags_sec mt-3">
-              <h2>Tags</h2>
+              <h2>Popular Tags</h2>
               <div className="tags_list">
                 <Link href="/tag/alesis">#Alesis</Link>
                 <Link href="/tag/audio">#Audio</Link>

@@ -30,7 +30,7 @@ export default function DisclaimerPage() {
             <div className="leftblog_data_markdown pb-5">
               <>
                 <div className="w-100 blogcontent">
-                  <h1>Disclaimer</h1>
+                  <h1>Disclaimer and Affiliates</h1>
                   <h2>How do we make money from our blog?</h2>
                   Some links on our blog are "affiliate links," which contain a special tracking code. <br />
                   This means if you click on an affiliate link and buy something, we get a commission at no extra cost
