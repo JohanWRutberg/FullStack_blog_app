@@ -205,28 +205,22 @@ export default function Home() {
                   {publishedblogs
                     .slice(indexOfFirstblog, indexOfLastblog)
                     .map((blog) => {
-                      const firstImageUrl = extractFirstImageUrl(
-                        blog.description
-                      );
+                      const firstImageUrl = extractFirstImageUrl(blog.description);
                       return (
-                        <div className="blog flex" key={blog._id}>
+                        <Link href={`/blog/${blog.slug}`} key={blog._id} className="blog flex" style={{ textDecoration: "none", color: "inherit" }}>
                           <div className="blogimg">
-                            <Link href={`/blog/${blog.slug}`}>
-                              <Image
-                                src={firstImageUrl || "/img/noimage.jpg"}
-                                alt={blog.title}
-                                width={800}
-                                height={600}
-                              />
-                            </Link>
+                            <Image
+                              src={firstImageUrl || "/img/noimage.jpg"}
+                              alt={blog.title}
+                              width={800}
+                              height={600}
+                            />
                           </div>
                           <div className="bloginfo">
-                            <Link href={`/tag/${blog.tags[0]}`}>
+                            <Link href={`/tag/${blog.tags[0]}`} onClick={e => e.stopPropagation()}>
                               <div className="blogtag">{blog.tags[0]}</div>
                             </Link>
-                            <Link href={`/blog/${blog.slug}`}>
-                              <h3>{blog.title}</h3>
-                            </Link>
+                            <h3>{blog.title}</h3>
                             <p>{getFirstWords(blog.description)}</p>
                             <div className="blogauthor flex gap-1">
                               <div className="blogaimg">
@@ -274,7 +268,7 @@ export default function Home() {
                               </div>
                             </div>
                           </div>
-                        </div>
+                        </Link>
                       );
                     })}
                 </>
