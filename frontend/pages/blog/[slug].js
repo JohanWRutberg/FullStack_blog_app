@@ -54,10 +54,13 @@ export async function getServerSideProps(context) {
       createdAt: post.createdAt,
     }));
 
+  const canonicalUrl = `${process.env.NEXT_PUBLIC_SITE_URL || "https://www.beatmastermind.com"}/blog/${slug}`;
+
     return {
       props: {
         blog,
         blogPostLinks,
+        canonicalUrl,
       },
     };
   } catch (error) {
@@ -66,7 +69,7 @@ export async function getServerSideProps(context) {
   }
 }
 
-export default function BlogPage({ blog = {}, blogPostLinks = [] }) {
+export default function BlogPage({ blog = {}, blogPostLinks = [], canonicalUrl }) {
   const router = useRouter();
 
   // Handle the loading state if the page is not yet generated
@@ -164,6 +167,10 @@ export default function BlogPage({ blog = {}, blogPostLinks = [] }) {
     <>
       <Head key={router.asPath}>
         <title>{`${blog.title || "Blog Post"} | Beat MasterMind`}</title>
+        <link
+          rel="canonical"
+          href={canonicalUrl || `${process.env.NEXT_PUBLIC_SITE_URL || "https://www.beatmastermind.com"}${router.asPath}`}
+        />
         <meta
           name="description"
           content={
@@ -188,7 +195,7 @@ export default function BlogPage({ blog = {}, blogPostLinks = [] }) {
         />
         <meta
           property="og:url"
-          content={`https://www.beatmastermind.com${router.asPath}`}
+          content={`${process.env.NEXT_PUBLIC_SITE_URL || "https://www.beatmastermind.com"}${router.asPath}`}
         />
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content={blog.title || "Blog Post"} />

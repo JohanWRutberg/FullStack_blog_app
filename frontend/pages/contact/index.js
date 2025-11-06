@@ -119,6 +119,10 @@ const Contact = () => {
     <>
       <Head>
         <title>Contact Us | Beat MasterMind</title>
+        <link
+          rel="canonical"
+          href={`${process.env.NEXT_PUBLIC_SITE_URL || "https://www.beatmastermind.com"}/contact`}
+        />
         <meta
           name="description"
           content="Have questions about electronic drums or accessories? Get in touch with the experts at Beat Mastermind today!"

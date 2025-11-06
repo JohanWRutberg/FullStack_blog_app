@@ -63,12 +63,16 @@ export default function Home() {
     <>
       <Head>
         <title>Beat MasterMind</title>
+        <link 
+          rel="canonical" 
+          href={process.env.NEXT_PUBLIC_SITE_URL || "https://www.beatmastermind.com"}
+        />
         <meta
           name="description"
           content="Beat MasterMind - Blog about Electronic drums and accessories!"
         />
         {/* Facebook Meta Tags */}
-        <meta property="og:url" content="https://www.beatmastermind.com/" />
+  <meta property="og:url" content={`${process.env.NEXT_PUBLIC_SITE_URL || "https://www.beatmastermind.com"}/`} />
         <meta property="og:type" content="website" />
         <meta property="og:title" content="Beat MasterMind Blog" />
         <meta
@@ -77,7 +81,7 @@ export default function Home() {
         />
         <meta
           property="og:image"
-          content="https://beatmastermind.com/logo_1250_1250.png"
+          content={`${process.env.NEXT_PUBLIC_SITE_URL || "https://www.beatmastermind.com"}/logo_1250_1250.png`}
         />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         {/* Twitter Meta Tags */}
@@ -85,7 +89,7 @@ export default function Home() {
         <meta property="twitter:domain" content="beatmastermind.com" />
         <meta
           property="twitter:url"
-          content="https://www.beatmastermind.com/"
+          content={`${process.env.NEXT_PUBLIC_SITE_URL || "https://www.beatmastermind.com"}/`}
         />
         <meta name="twitter:title" content="Beat MasterMind" />
         <meta
@@ -94,7 +98,7 @@ export default function Home() {
         />
         <meta
           name="twitter:image"
-          content="https://beatmastermind.com/logo_1250_1250.png"
+          content={`${process.env.NEXT_PUBLIC_SITE_URL || "https://www.beatmastermind.com"}/logo_1250_1250.png`}
         ></meta>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.png" />
@@ -106,16 +110,16 @@ export default function Home() {
             name: "Beat MasterMind Video",
             description:
               "An introduction to Beat MasterMind - Your electronic drums expert.",
-            thumbnailUrl: "https://www.beatmastermind.com/video_thumbnail.jpg",
+            thumbnailUrl: `${process.env.NEXT_PUBLIC_SITE_URL || "https://www.beatmastermind.com"}/video_thumbnail.jpg`,
             uploadDate: "2023-12-31T12:00:00+00:00",
-            contentUrl: "https://www.beatmastermind.com/Beat_MasterMind.mp4",
-            embedUrl: "https://www.beatmastermind.com",
+            contentUrl: `${process.env.NEXT_PUBLIC_SITE_URL || "https://www.beatmastermind.com"}/Beat_MasterMind.mp4`,
+            embedUrl: `${process.env.NEXT_PUBLIC_SITE_URL || "https://www.beatmastermind.com"}`,
             publisher: {
               "@type": "Organization",
               name: "Beat MasterMind",
               logo: {
                 "@type": "ImageObject",
-                url: "https://www.beatmastermind.com/favicon.png",
+                url: `${process.env.NEXT_PUBLIC_SITE_URL || "https://www.beatmastermind.com"}/favicon.png`,
               },
             },
           })}

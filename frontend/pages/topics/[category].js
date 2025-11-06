@@ -10,7 +10,7 @@ function capitalizeFirstLetter(str) {
   return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
 }
 
-export default function CategoryPage({ initialData, category }) {
+export default function CategoryPage({ initialData, category, canonicalUrl }) {
   const [loading, setLoading] = useState(!initialData);
   const [currentPage, setCurrentPage] = useState(1); // Page number
   const [perPage] = useState(7); // Number of blogs per page
@@ -82,22 +82,72 @@ export default function CategoryPage({ initialData, category }) {
   return (
     <>
       <Head>
-        <title>{category ? `${capitalizeFirstLetter(category)} | Beat MasterMind` : "Beat MasterMind"}</title>
-        <meta name="keywords" content={category || "Topic on Beat MasterMind"} />
-        <meta property="og:title" content={category ? capitalizeFirstLetter(category) : "Topic on Beat MasterMind"} />
+        <title>
+          {category
+            ? `${capitalizeFirstLetter(category)} | Beat MasterMind`
+            : "Beat MasterMind"}
+        </title>
+        <link
+          rel="canonical"
+          href={
+            canonicalUrl ||
+            `${
+              process.env.NEXT_PUBLIC_SITE_URL ||
+              "https://www.beatmastermind.com"
+            }${router.asPath}`
+          }
+        />
+        <meta
+          name="keywords"
+          content={category || "Topic on Beat MasterMind"}
+        />
+        <meta
+          property="og:title"
+          content={
+            category
+              ? capitalizeFirstLetter(category)
+              : "Topic on Beat MasterMind"
+          }
+        />
         <meta
           property="og:description"
-          content={blog.description ? blog.description.slice(0, 150) : "Blog post on Beat MasterMind"}
+          content={
+            blog.description
+              ? blog.description.slice(0, 150)
+              : "Blog post on Beat MasterMind"
+          }
         />
-        <meta property="og:image" content={blog.image || "/default-image.png"} />
-        <meta property="og:url" content={`https://www.beatmastermind.com${router.asPath}`} />
+        <meta
+          property="og:image"
+          content={blog.image || "/default-image.png"}
+        />
+        <meta
+          property="og:url"
+          content={`${
+            process.env.NEXT_PUBLIC_SITE_URL || "https://www.beatmastermind.com"
+          }${router.asPath}`}
+        />
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content={category ? capitalizeFirstLetter(category) : "Topic on Beat MasterMind"} />
+        <meta
+          name="twitter:title"
+          content={
+            category
+              ? capitalizeFirstLetter(category)
+              : "Topic on Beat MasterMind"
+          }
+        />
         <meta
           name="twitter:description"
-          content={blog.description ? blog.description.slice(0, 150) : "Blog post on Beat MasterMind"}
+          content={
+            blog.description
+              ? blog.description.slice(0, 150)
+              : "Blog post on Beat MasterMind"
+          }
         />
-        <meta name="twitter:image" content={blog.image || "/default-image.png"} />
+        <meta
+          name="twitter:image"
+          content={blog.image || "/default-image.png"}
+        />
       </Head>
       <div className="blogpage">
         <div className="category_slug">
@@ -114,7 +164,13 @@ export default function CategoryPage({ initialData, category }) {
                     category
                   )}
                 </h1>
-                <span>{loading ? <div>0</div> : publishedblogs.filter((blog) => blog.blogcategory).length}</span>
+                <span>
+                  {loading ? (
+                    <div>0</div>
+                  ) : (
+                    publishedblogs.filter((blog) => blog.blogcategory).length
+                  )}
+                </span>
               </div>
             </div>
             <div className="category_blogs mt-3">
@@ -128,7 +184,12 @@ export default function CategoryPage({ initialData, category }) {
                   return (
                     <div className="cate_blog" key={item._id}>
                       <Link href={`/blog/${item.slug}`}>
-                        <Image src={firstImageUrl || "/img/noimage.jpg"} alt={item.title} height={830} width={1250} />
+                        <Image
+                          src={firstImageUrl || "/img/noimage.jpg"}
+                          alt={item.title}
+                          height={830}
+                          width={1250}
+                        />
                       </Link>
 
                       <div className="bloginfo mt-2">
@@ -141,16 +202,24 @@ export default function CategoryPage({ initialData, category }) {
                         <p>{getFirstWords(item.description)}</p>
                         <div className="blogauthor flex gap-1">
                           <div className="blogaimg">
-                            <Image src="/img/Beat_Master.PNG" alt="logo" height={50} width={50} />
+                            <Image
+                              src="/img/Beat_Master.PNG"
+                              alt="logo"
+                              height={50}
+                              width={50}
+                            />
                           </div>
                           <div className="flex flex-col flex-left gap-05">
                             <h5>Beat MasterMind</h5>
                             <span>
-                              {new Date(item.createdAt).toLocaleDateString("en-US", {
-                                month: "long",
-                                day: "numeric",
-                                year: "numeric"
-                              })}
+                              {new Date(item.createdAt).toLocaleDateString(
+                                "en-US",
+                                {
+                                  month: "long",
+                                  day: "numeric",
+                                  year: "numeric",
+                                }
+                              )}
                             </span>
                           </div>
                         </div>
@@ -162,11 +231,17 @@ export default function CategoryPage({ initialData, category }) {
             </div>
             <div className="blogpagination">
               <div className="blogpagination">
-                <button onClick={() => paginate(currentPage - 1)} disabled={currentPage === 1}>
+                <button
+                  onClick={() => paginate(currentPage - 1)}
+                  disabled={currentPage === 1}
+                >
                   Previous
                 </button>
                 {pageNumbers
-                  .slice(Math.max(currentPage - 3, 0), Math.min(currentPage + 2, pageNumbers.length))
+                  .slice(
+                    Math.max(currentPage - 3, 0),
+                    Math.min(currentPage + 2, pageNumbers.length)
+                  )
                   .map((number) => (
                     <button
                       key={number}
@@ -176,7 +251,10 @@ export default function CategoryPage({ initialData, category }) {
                       {number}
                     </button>
                   ))}
-                <button onClick={() => paginate(currentPage + 1)} disabled={currentBlogs.length < perPage}>
+                <button
+                  onClick={() => paginate(currentPage + 1)}
+                  disabled={currentBlogs.length < perPage}
+                >
                   Next
                 </button>
               </div>
@@ -195,7 +273,9 @@ export async function getServerSideProps(context) {
 
   try {
     /* const res = await axios.get(`http://localhost:3000/api/getblog?blogcategory=${category}`); */
-    const res = await axios.get(`http://www.beatmastermind.com/api/getblog?blogcategory=${category}`);
+    const res = await axios.get(
+      `http://www.beatmastermind.com/api/getblog?blogcategory=${category}`
+    );
     initialData = res.data;
   } catch (error) {
     console.error("Error fetching blog data", error);
@@ -204,7 +284,10 @@ export async function getServerSideProps(context) {
   return {
     props: {
       initialData,
-      category
-    }
+      category,
+      canonicalUrl: `${
+        process.env.NEXT_PUBLIC_SITE_URL || "https://www.beatmastermind.com"
+      }/topics/${category}`,
+    },
   };
 }

@@ -8,7 +8,7 @@ export default async function handler(req, res) {
   const blogs = await Blog.find({}, { slug: 1, tags: 1, blogcategory: 1 });
 
   // Base URL for your site
-  const baseUrl = "https://www.beatmastermind.com";
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://www.beatmastermind.com";
 
   // URLs to include in sitemap
   const staticPaths = [

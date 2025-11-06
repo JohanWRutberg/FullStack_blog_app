@@ -6,6 +6,10 @@ export default function DisclaimerPage() {
     <>
       <Head>
         <title>Disclaimer | Beat MasterMind</title>
+        <link
+          rel="canonical"
+          href={`${process.env.NEXT_PUBLIC_SITE_URL || "https://www.beatmastermind.com"}/disclaimer`}
+        />
         <meta name="description" content="Learn more about Beat MasterMind and our mission." />
 
         {/* Open Graph Metadata */}

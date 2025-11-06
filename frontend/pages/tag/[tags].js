@@ -10,7 +10,7 @@ function capitalizeFirstLetter(str) {
   return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
 }
 
-export default function CategoryPage({ initialData, tag }) {
+export default function CategoryPage({ initialData, tag, canonicalUrl }) {
   const [loading, setLoading] = useState(!initialData);
   const [currentPage, setCurrentPage] = useState(1); // Page number
   const [perPage] = useState(6); // Number of blogs per page
@@ -85,6 +85,16 @@ export default function CategoryPage({ initialData, tag }) {
             ? `${capitalizeFirstLetter(tag)} | Beat MasterMind`
             : "Beat MasterMind"}
         </title>
+        <link
+          rel="canonical"
+          href={
+            canonicalUrl ||
+            `${
+              process.env.NEXT_PUBLIC_SITE_URL ||
+              "https://www.beatmastermind.com"
+            }${router.asPath}`
+          }
+        />
         <meta name="keywords" content={tag || "Tags on Beat MasterMind"} />
         <meta
           property="og:title"
@@ -104,7 +114,9 @@ export default function CategoryPage({ initialData, tag }) {
         />
         <meta
           property="og:url"
-          content={`https://www.beatmastermind.com${router.asPath}`}
+          content={`${
+            process.env.NEXT_PUBLIC_SITE_URL || "https://www.beatmastermind.com"
+          }${router.asPath}`}
         />
         <meta name="twitter:card" content="summary_large_image" />
         <meta
@@ -251,6 +263,9 @@ export async function getServerSideProps(context) {
     props: {
       initialData,
       tag: tags,
+      canonicalUrl: `${
+        process.env.NEXT_PUBLIC_SITE_URL || "https://www.beatmastermind.com"
+      }/tag/${tags}`,
     },
   };
 }

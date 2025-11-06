@@ -6,6 +6,10 @@ export default function AboutPage() {
     <>
       <Head>
         <title>About Us | Beat MasterMind</title>
+        <link
+          rel="canonical"
+          href={`${process.env.NEXT_PUBLIC_SITE_URL || "https://www.beatmastermind.com"}/about`}
+        />
         <meta
           name="description"
           content="Learn about Beat Mastermind, the ultimate resource for drummers seeking expert advice on electronic drums and accessories."
