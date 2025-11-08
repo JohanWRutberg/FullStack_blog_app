@@ -7,7 +7,8 @@ const BlogSchema = new Schema(
     description: { type: String },
     blogcategory: [{ type: String }], // Markdown content
     tags: [{ type: String }],
-    status: { type: String }
+    status: { type: String },
+    asins: [{ type: String }],
   },
   { timestamps: true }
 );

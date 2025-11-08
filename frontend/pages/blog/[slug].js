@@ -1,9 +1,11 @@
+import React from "react";
 import axios from "axios";
 import Link from "next/link";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { BsAmazon } from "react-icons/bs";
+import AmazonProductCard from "@/components/AmazonProductCard";
 import { DiCodeigniter } from "react-icons/di";
 import { GiDrum, GiDrumKit } from "react-icons/gi";
 import { ImHeadphones } from "react-icons/im";
@@ -54,7 +56,9 @@ export async function getServerSideProps(context) {
       createdAt: post.createdAt,
     }));
 
-  const canonicalUrl = `${process.env.NEXT_PUBLIC_SITE_URL || "https://www.beatmastermind.com"}/blog/${slug}`;
+    const canonicalUrl = `${
+      process.env.NEXT_PUBLIC_SITE_URL || "https://www.beatmastermind.com"
+    }/blog/${slug}`;
 
     return {
       props: {
@@ -69,7 +73,11 @@ export async function getServerSideProps(context) {
   }
 }
 
-export default function BlogPage({ blog = {}, blogPostLinks = [], canonicalUrl }) {
+export default function BlogPage({
+  blog = {},
+  blogPostLinks = [],
+  canonicalUrl,
+}) {
   const router = useRouter();
 
   // Handle the loading state if the page is not yet generated
@@ -169,7 +177,13 @@ export default function BlogPage({ blog = {}, blogPostLinks = [], canonicalUrl }
         <title>{`${blog.title || "Blog Post"} | Beat MasterMind`}</title>
         <link
           rel="canonical"
-          href={canonicalUrl || `${process.env.NEXT_PUBLIC_SITE_URL || "https://www.beatmastermind.com"}${router.asPath}`}
+          href={
+            canonicalUrl ||
+            `${
+              process.env.NEXT_PUBLIC_SITE_URL ||
+              "https://www.beatmastermind.com"
+            }${router.asPath}`
+          }
         />
         <meta
           name="description"
@@ -196,7 +210,9 @@ export default function BlogPage({ blog = {}, blogPostLinks = [], canonicalUrl }
         />
         <meta
           property="og:url"
-          content={`${process.env.NEXT_PUBLIC_SITE_URL || "https://www.beatmastermind.com"}${router.asPath}`}
+          content={`${
+            process.env.NEXT_PUBLIC_SITE_URL || "https://www.beatmastermind.com"
+          }${router.asPath}`}
         />
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content={blog.title || "Blog Post"} />
@@ -258,6 +274,34 @@ export default function BlogPage({ blog = {}, blogPostLinks = [], canonicalUrl }
                         </a>
                       );
                     },
+                    p: ({ node, children }) => {
+                      // Hitta alla ASINs, även flera i samma tagg
+                      const asinMatches = [];
+                      React.Children.forEach(children, (child) => {
+                        if (typeof child === "string") {
+                          const matches = [
+                            ...child.matchAll(/\[amazon:([\w\d,\s]+)\]/g),
+                          ];
+                          matches.forEach((m) => {
+                            const asins = m[1].split(",").map((a) => a.trim());
+                            asinMatches.push(...asins);
+                          });
+                        }
+                      });
+
+                      if (asinMatches.length > 0) {
+                        return (
+                          <div className="my-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                            {asinMatches.map((asin) => (
+                              <AmazonProductCard key={asin} asin={asin} />
+                            ))}
+                          </div>
+                        );
+                      }
+
+                      return <p>{children}</p>;
+                    },
+
                     code: Code,
                   }}
                 >
