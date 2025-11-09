@@ -1,104 +1,111 @@
-import { mongooseConnect } from "@/lib/mongoose";
-import { Product } from "@/models/Product";
-import axios from "axios";
+import aws4 from "aws4";
+import https from "https";
 
 const cache = {};
 const cacheTTL = 1000 * 60 * 60; // 1 timme
 
 export default async function handler(req, res) {
-  if (req.method !== "POST")
-    return res.status(405).json({ message: "Method not allowed" });
+  const { asin } = req.body || {};
+  if (!asin) return res.status(400).json({ error: "ASIN missing" });
 
-  const { asin } = req.body;
-  console.log("🔍 API called with ASIN:", asin);
+  console.log(`🔍 API called with ASIN: ${asin}`);
+
+  if (cache[asin] && Date.now() - cache[asin].timestamp < cacheTTL) {
+    console.log(`⚡ Using cached data for ${asin}`);
+    return res.status(200).json(cache[asin].data);
+  }
+
+  const accessKey = process.env.AMAZON_ACCESS_KEY;
+  const secretKey = process.env.AMAZON_SECRET_KEY;
+  const partnerTag = process.env.AMAZON_ASSOCIATE_TAG;
+  const region = process.env.AMAZON_REGION || "us-east-1";
+  const host = "webservices.amazon.com";
+  const path = "/paapi5/getitems";
+
+  const payload = JSON.stringify({
+    ItemIds: [asin],
+    Resources: [
+      "Images.Primary.Large",
+      "ItemInfo.Title",
+      "Offers.Listings.Price",
+    ],
+    PartnerTag: partnerTag,
+    PartnerType: "Associates",
+    Marketplace: "www.amazon.com",
+  });
+
+  const opts = {
+    host,
+    path,
+    service: "ProductAdvertisingAPIv1",
+    region,
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json; charset=UTF-8",
+      "X-Amz-Target": "com.amazon.paapi5.v1.ProductAdvertisingAPIv1.GetItems",
+    },
+    body: payload,
+  };
+
+  aws4.sign(opts, { accessKeyId: accessKey, secretAccessKey: secretKey });
+  console.log("🧾 SIGNATURE DEBUG", {
+    host: opts.host,
+    region: opts.region,
+    service: opts.service,
+    headers: opts.headers,
+  });
 
   try {
-    await mongooseConnect();
+    const product = await new Promise((resolve, reject) => {
+      const request = https.request(opts, (response) => {
+        let data = "";
+        response.on("data", (chunk) => (data += chunk));
+        response.on("end", () => {
+          try {
+            const json = JSON.parse(data);
+            if (json.ItemsResult && json.ItemsResult.Items.length > 0) {
+              const item = json.ItemsResult.Items[0];
+              const result = {
+                asin,
+                title: item.ItemInfo?.Title?.DisplayValue || "Untitled Product",
+                price:
+                  item.Offers?.Listings?.[0]?.Price?.DisplayAmount ||
+                  "Price unavailable",
+                image: item.Images?.Primary?.Large?.URL || "/img/noimage.jpg",
+                url: `https://www.amazon.com/dp/${asin}?tag=${process.env.NEXT_PUBLIC_AFFILIATE_TAG}`,
+              };
+              resolve(result);
+            } else {
+              console.error("No items found:", json);
+              reject(json);
+            }
+          } catch (err) {
+            reject(err);
+          }
+        });
+      });
 
-    // 1️⃣ Kolla RAM-cache
-    if (cache[asin] && Date.now() - cache[asin].timestamp < cacheTTL) {
-      console.log("⚡ Using in-memory cache for", asin);
-      return res.status(200).json(cache[asin].data);
-    }
+      request.on("error", reject);
+      request.write(payload);
+      request.end();
+    });
 
-    // 2️⃣ Kolla MongoDB-cache
-    const existingProduct = await Product.findOne({ asin });
-    const oneDayAgo = new Date(Date.now() - 24 * 60 * 60 * 1000);
-    if (existingProduct && existingProduct.lastFetched > oneDayAgo) {
-      console.log("📦 Using MongoDB cached product:", existingProduct.asin);
-      cache[asin] = { data: existingProduct, timestamp: Date.now() };
-      return res.status(200).json(existingProduct);
-    }
-
-    // 3️⃣ Hämta från Amazon API
-    const response = await axios.post(
-      "https://webservices.amazon.com/paapi5/getitems",
-      {
-        ItemIds: [asin],
-        Resources: [
-          "Images.Primary.Large",
-          "ItemInfo.Title",
-          "Offers.Listings.Price",
-          "DetailPageURL",
-        ],
-        PartnerTag: process.env.AMAZON_ASSOCIATE_TAG,
-        PartnerType: "Associates",
-        Marketplace: "www.amazon.com",
-      },
-      {
-        headers: {
-          "Content-Type": "application/json",
-          "X-Amz-Date": new Date().toISOString(),
-          "X-Amz-Target":
-            "com.amazon.paapi5.v1.ProductAdvertisingAPIv1.GetItems",
-        },
-        auth: {
-          username: process.env.AMAZON_ACCESS_KEY,
-          password: process.env.AMAZON_SECRET_KEY,
-        },
-      }
-    );
-
-    const item = response.data.ItemsResult?.Items?.[0];
-    if (!item) throw new Error("No item returned from Amazon API");
-
-    const productData = {
-      asin,
-      title: item.ItemInfo?.Title?.DisplayValue || "Unknown Product",
-      price:
-        item.Offers?.Listings?.[0]?.Price?.DisplayAmount || "See on Amazon",
-      image: item.Images?.Primary?.Large?.URL || null,
-      url: item.DetailPageURL,
-      lastFetched: new Date(),
-    };
-
-    // 4️⃣ Spara i DB och cache
-    await Product.findOneAndUpdate({ asin }, productData, { upsert: true });
-    cache[asin] = { data: productData, timestamp: Date.now() };
-
-    console.log("✅ Product cached and returned:", asin);
-    return res.status(200).json(productData);
+    cache[asin] = { data: product, timestamp: Date.now() };
+    console.log(`✅ Cached API data for ${asin}`);
+    return res.status(200).json(product);
   } catch (error) {
-    console.error(
-      "💥 Amazon API Error:",
-      error.response?.data || error.message
-    );
-
-    // 5️⃣ Fallback till DB om API misslyckas
-    const fallback = await Product.findOne({ asin });
-    if (fallback) {
-      console.log("🧩 Using fallback MongoDB data for", asin);
-      return res.status(200).json(fallback);
-    }
-
-    // 6️⃣ Mock som sista utväg
-    const mockData = {
-      asin,
-      title: "Demo Product (Mock)",
-      price: "$99.99",
-      image: null,
-      url: `https://www.amazon.com/dp/${asin}`,
-    };
-    return res.status(200).json(mockData);
+    console.error("💥 Amazon API Error:", error);
   }
+
+  // --- fallback ---
+  const fallback = {
+    asin,
+    title: "Demo Product (Mock)",
+    price: "N/A",
+    image: "/img/noimage.jpg",
+    url: `https://www.amazon.com/dp/${asin}?tag=${process.env.NEXT_PUBLIC_AFFILIATE_TAG}`,
+  };
+
+  console.log(`🧩 Using fallback for ${asin}`);
+  return res.status(200).json(fallback);
 }

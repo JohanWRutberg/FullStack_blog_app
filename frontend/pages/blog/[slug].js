@@ -5,7 +5,9 @@ import Image from "next/image";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { BsAmazon } from "react-icons/bs";
-import AmazonProductCard from "@/components/AmazonProductCard";
+import AmazonProduct from "@/components/AmazonProduct";
+import AmazonProductCard from "../../components/AmazonProductCard";
+import AmazonGrid from "../../components/AmazonGrid";
 import { DiCodeigniter } from "react-icons/di";
 import { GiDrum, GiDrumKit } from "react-icons/gi";
 import { ImHeadphones } from "react-icons/im";
@@ -253,8 +255,38 @@ export default function BlogPage({
                 <ReactMarkdown
                   remarkPlugins={[remarkGfm]}
                   components={{
+                    p: ({ node, children }) => {
+                      // Sök efter alla [amazon:ASIN] mönster i paragrafen
+                      const asinMatches = [];
+                      React.Children.forEach(children, (child) => {
+                        if (typeof child === "string") {
+                          const matches = [
+                            ...child.matchAll(/\[amazon:([\w\d,]+)\]/g),
+                          ];
+                          matches.forEach((m) => {
+                            const asins = m[1].split(",").map((a) => a.trim());
+                            asinMatches.push(...asins);
+                          });
+                        }
+                      });
+
+                      // Om paragrafen innehåller ASINs — rendera produktkort
+                      if (asinMatches.length > 0) {
+                        return (
+                          <div className="my-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                            {asinMatches.map((asin) => (
+                              <AmazonProduct key={asin} asin={asin} />
+                            ))}
+                          </div>
+                        );
+                      }
+
+                      // Annars — vanlig paragraf
+                      return <p>{children}</p>;
+                    },
+
                     a: ({ href, children }) => {
-                      const isAmazonLink = href.startsWith("https://amzn");
+                      const isAmazonLink = href?.startsWith("https://amzn");
                       return (
                         <a
                           href={href}
@@ -274,33 +306,6 @@ export default function BlogPage({
                         </a>
                       );
                     },
-                    p: ({ node, children }) => {
-                      // Hitta alla ASINs, även flera i samma tagg
-                      const asinMatches = [];
-                      React.Children.forEach(children, (child) => {
-                        if (typeof child === "string") {
-                          const matches = [
-                            ...child.matchAll(/\[amazon:([\w\d,\s]+)\]/g),
-                          ];
-                          matches.forEach((m) => {
-                            const asins = m[1].split(",").map((a) => a.trim());
-                            asinMatches.push(...asins);
-                          });
-                        }
-                      });
-
-                      if (asinMatches.length > 0) {
-                        return (
-                          <div className="my-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                            {asinMatches.map((asin) => (
-                              <AmazonProductCard key={asin} asin={asin} />
-                            ))}
-                          </div>
-                        );
-                      }
-
-                      return <p>{children}</p>;
-                    },
 
                     code: Code,
                   }}
@@ -308,6 +313,20 @@ export default function BlogPage({
                   {blog.description}
                 </ReactMarkdown>
               </div>
+              {/* Amazon products grid */}
+              {/* <AmazonGrid
+                asins={Array.from(
+                  blog.description.matchAll(/\[amazon:([\w\d]+)\]/g)
+                ).map((m) => m[1])}
+              /> */}
+
+              {/* Affiliate disclosure */}
+              <p className="mt-6 text-sm text-gray-600 text-center italic">
+                As an Amazon Associate, we earn from qualifying purchases. This
+                means that if you click a link and buy something, we may receive
+                a small commission at no extra cost to you. Thank you for
+                supporting Beat Mastermind!
+              </p>
             </div>
             <div className="rightslug_data">
               <div className="slug_profile_info">

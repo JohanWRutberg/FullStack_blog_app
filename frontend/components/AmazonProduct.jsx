@@ -1,34 +1,78 @@
-export default function AmazonProduct({ asin, product }) {
-  if (!product) {
+import { useState, useEffect } from "react";
+import Image from "next/image";
+
+export default function AmazonProduct({ asin }) {
+  const [product, setProduct] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    if (!asin) return;
+    setLoading(true);
+
+    fetch("/api/amazon", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ asin }),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        setProduct(data);
+        setLoading(false);
+      })
+      .catch((err) => {
+        console.error("❌ Error fetching product:", err);
+        setLoading(false);
+      });
+  }, [asin]);
+
+  if (loading) {
     return (
-      <div className="flex justify-center items-center h-48">
-        <p className="text-gray-500">Loading...</p>
+      <div className="flex flex-col items-center text-center border rounded-lg p-4 shadow-sm animate-pulse">
+        <div className="w-full h-64 bg-gray-200 mb-4 rounded-lg"></div>
+        <div className="h-6 w-3/4 bg-gray-200 mb-2 rounded"></div>
+        <div className="h-4 w-1/2 bg-gray-200 mb-3 rounded"></div>
+        <div className="h-8 w-1/3 bg-gray-300 rounded"></div>
       </div>
     );
   }
 
-  return (
-    <div className="flex flex-col items-center text-center">
-      {product.image ? (
-        <img
-          src={product.image}
-          alt={product.title}
-          className="w-full h-64 object-contain mb-4 rounded-lg"
-        />
-      ) : (
-        <div className="w-full h-64 bg-gray-100 flex items-center justify-center mb-4 rounded-lg">
-          <span className="text-gray-400">No Image</span>
-        </div>
-      )}
+  if (!product) {
+    return (
+      <div className="flex justify-center items-center h-48">
+        <p className="text-gray-500">Product not available</p>
+      </div>
+    );
+  }
 
-      <h3 className="font-semibold text-lg mb-2 line-clamp-2">
+  // ✅ Bygg rätt URL för rätt region
+  const regionHost = "https://www.amazon.com";
+  const affiliateTag =
+    process.env.NEXT_PUBLIC_AFFILIATE_TAG || "beatmastermin-20";
+  const amazonUrl = `${regionHost}/dp/${asin}?tag=${affiliateTag}`;
+
+  const imageSrc = product.image?.startsWith("http")
+    ? `/api/image-proxy?url=${encodeURIComponent(product.image)}`
+    : product.image || "/img/noimage.jpg";
+
+  return (
+    <div className="flex flex-col items-center text-center border rounded-lg p-4 shadow-sm hover:shadow-md transition bg-white">
+      <Image
+        src={imageSrc}
+        alt={product.title}
+        width={400}
+        height={400}
+        className="w-full h-64 object-contain mb-4 rounded-lg"
+        unoptimized={false}
+      />
+
+      <h3 className="font-semibold text-lg mb-2 line-clamp-2 text-gray-800">
         {product.title}
       </h3>
 
       <p className="text-gray-700 mb-3">{product.price}</p>
 
       <a
-        href={`https://www.amazon.com/dp/${asin}?tag=${process.env.NEXT_PUBLIC_AFFILIATE_TAG}`}
+        href={amazonUrl}
         target="_blank"
         rel="noopener noreferrer"
         className="inline-block bg-yellow-400 hover:bg-yellow-500 text-black font-medium py-2 px-4 rounded-lg transition"
