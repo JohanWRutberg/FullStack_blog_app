@@ -3,6 +3,7 @@ import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 import ScrollToTopBtn from "@/components/ScrollToTopBtn";
 /* import TopLoadingLine from "@/components/TopLoadingLine"; */
+import { Analytics } from "@vercel/analytics/next";
 import { GoogleTagManager } from "@next/third-parties/google";
 import { GoogleAnalytics } from "@next/third-parties/google";
 import "@/styles/globals.css";
@@ -19,8 +20,11 @@ export default function App({ Component, pageProps }) {
 
         <Aos>
           <Component {...pageProps} />
-          <GoogleTagManager gtmId={process.env.NEXT_PUBLIC_GOOGLE_TAG_MANAGER} />
+          <GoogleTagManager
+            gtmId={process.env.NEXT_PUBLIC_GOOGLE_TAG_MANAGER}
+          />
           <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS} />
+          <Analytics />
         </Aos>
 
         <ScrollToTopBtn />

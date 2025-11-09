@@ -55,7 +55,7 @@ export default function AmazonProduct({ asin }) {
     : product.image || "/img/noimage.jpg";
 
   return (
-    <div className="flex flex-col items-center text-center border rounded-lg p-4 shadow-sm hover:shadow-md transition bg-white">
+    <div className="flex flex-col items-center text-center border-2 border-gray-300 rounded-2xl p-6 shadow-lg hover:shadow-xl transition bg-gray-50">
       <Image
         src={imageSrc}
         alt={product.title}
@@ -75,7 +75,7 @@ export default function AmazonProduct({ asin }) {
         href={amazonUrl}
         target="_blank"
         rel="noopener noreferrer"
-        className="inline-block bg-yellow-400 hover:bg-yellow-500 text-black font-medium py-2 px-4 rounded-lg transition"
+        className="inline-block bg-yellow-200 hover:bg-yellow-500 text-black font-medium py-2 px-4 rounded-lg transition"
       >
         Buy on Amazon
       </a>
