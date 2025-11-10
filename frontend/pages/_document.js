@@ -3,7 +3,8 @@ import { GoogleAnalytics, GoogleTagManager } from "@next/third-parties/google";
 import Script from "next/script";
 
 export default function Document() {
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://www.beatmastermind.com";
+  const siteUrl =
+    process.env.NEXT_PUBLIC_SITE_URL || "https://www.beatmastermind.com";
 
   return (
     <Html lang="en">
@@ -39,14 +40,17 @@ export default function Document() {
                 gtag('config', '${process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS}', {
                   page_path: window.location.pathname,
                 });
-              `
+              `,
             }}
           />
         )}
 
         {/* Essential Meta Tags */}
         <meta charSet="UTF-8" />
-        <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+        <meta
+          name="robots"
+          content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1"
+        />
         <meta name="author" content="Beat MasterMind" />
         {/* Meta description removed here so individual pages can provide their own description and avoid duplicates. */}
         <meta
@@ -62,7 +66,10 @@ export default function Document() {
         {/* Open Graph Meta Tags */}
         <meta property="og:locale" content="en_US" />
         <meta property="og:type" content="website" />
-        <meta property="og:title" content="Beat MasterMind Blog - Electronic Drums & Accessories" />
+        <meta
+          property="og:title"
+          content="Beat MasterMind Blog - Electronic Drums & Accessories"
+        />
         <meta
           property="og:description"
           content="Discover top-rated electronic drum sets and pads. Find the most expensive electronic drum set in the world and affordable options like the Alesis Strike Pro Special Edition. Learn how to install caster rollers and stop floor vibrations."
@@ -75,7 +82,11 @@ export default function Document() {
 
         {/* Preconnect for Fonts */}
         <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link
+          rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossOrigin="anonymous"
+        />
         <link
           href="https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap"
           rel="stylesheet"
@@ -87,6 +98,25 @@ export default function Document() {
             href="https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap"
           />
         </noscript>
+
+        {/* Organization Schema (för att visa "Beat Mastermind" i sökresultat) */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "Organization",
+              name: "Beat Mastermind",
+              url: siteUrl,
+              logo: `${siteUrl}/logo_1250_1250.png`,
+              sameAs: [
+                "https://www.facebook.com/beatmastermind",
+                "https://www.instagram.com/beatmastermind",
+                "https://www.pinterest.com/beatmastermind",
+              ],
+            }),
+          }}
+        />
 
         {/* Favicon */}
         <link rel="icon" type="image/png" href="/favicon.png" sizes="32x32" />
