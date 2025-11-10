@@ -107,8 +107,8 @@ export default function Document() {
               "@context": "https://schema.org",
               "@type": "Organization",
               name: "Beat Mastermind",
-              url: siteUrl,
-              logo: `${siteUrl}/logo_1250_1250.png`,
+              url: "https://www.beatmastermind.com",
+              logo: "https://www.beatmastermind.com/logo_1250_1250.png",
               sameAs: [
                 "https://www.facebook.com/beatmastermind",
                 "https://www.instagram.com/beatmastermind",
