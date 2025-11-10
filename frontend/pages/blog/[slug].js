@@ -368,16 +368,17 @@ export default function BlogPage({
                     </ul>
                   </div>
                 </div>
-                {/* <div className="slug_aff_img mt-15">
+                <div className="slug_aff_img mt-15 text-xs italic">
                   <p>
-                    As an Amazon Associate, we earn from qualifying purchases. This means that if you click on a link to
-                    an Amazon product on this site and make a purchase, we may receive a commission at no additional
-                    cost to you. This helps support the site and allows us to continue providing useful content.
+                    As an Amazon Associate, we earn from qualifying purchases.
+                    This means that if you click a link and buy something, we
+                    may receive a small commission at no extra cost to you.
+                    Thank you for supporting Beat Mastermind!
                     <br />
                     <br />
                     Thank you for your support!
                   </p>
-                </div> */}
+                </div>
               </div>
               <div className="topics_sec">
                 <h2>Latest Blog Posts</h2>
