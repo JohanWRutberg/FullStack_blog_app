@@ -374,9 +374,6 @@ export default function BlogPage({
                     This means that if you click a link and buy something, we
                     may receive a small commission at no extra cost to you.
                     Thank you for supporting Beat Mastermind!
-                    <br />
-                    <br />
-                    Thank you for your support!
                   </p>
                 </div>
               </div>
