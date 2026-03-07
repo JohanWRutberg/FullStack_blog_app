@@ -1,0 +1,33 @@
+{
+  "B0002E1G5C": {
+    "title": "Roland NE-10 Noise Eater",
+    "price": "$199",
+    "image": "/img/noimage.jpg"
+  },
+  "B07L4TBX9S": {
+    "title": "Alesis Nitro Mesh Kit",
+    "price": "$379",
+    "image": "/img/noimage.jpg"
+  },
+
+  "B01H4VG35I": {
+    "title": "Product for B01H4VG35I",
+    "price": "$99",
+    "image": "/img/noimage.jpg"
+  },
+  "B0045XUU08": {
+    "title": "Product for B0045XUU08",
+    "price": "$129",
+    "image": "/img/noimage.jpg"
+  },
+  "B00IOQADYU": {
+    "title": "Product for B00IOQADYU",
+    "price": "$149",
+    "image": "/img/noimage.jpg"
+  },
+  "B00FONJ658": {
+    "title": "Product for B00FONJ658",
+    "price": "$179",
+    "image": "/img/noimage.jpg"
+  }
+}

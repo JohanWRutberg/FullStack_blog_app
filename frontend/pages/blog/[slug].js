@@ -8,6 +8,8 @@ import { BsAmazon } from "react-icons/bs";
 import AmazonProduct from "@/components/AmazonProduct";
 import AmazonProductCard from "../../components/AmazonProductCard";
 import AmazonGrid from "../../components/AmazonGrid";
+import AmazonCarouselGlass from "@/components/AmazonCarouselGlass";
+import products from "@/data/products.json";
 import { DiCodeigniter } from "react-icons/di";
 import { GiDrum, GiDrumKit } from "react-icons/gi";
 import { ImHeadphones } from "react-icons/im";
@@ -100,6 +102,24 @@ export default function BlogPage({
 
   // Collect Amazon affiliate links
   const [linkDetails, setLinkDetails] = useState([]);
+  const [amazonAsins, setAmazonAsins] = useState([]);
+
+  // Build product list for the premium carousel
+  const productsUsedInPost = amazonAsins
+    .map((asin) => products[asin])
+    .filter(Boolean);
+
+  useEffect(() => {
+    if (!blog.description) return;
+
+    // Extract [amazon:ASIN]
+    const matches = [...blog.description.matchAll(/\[amazon:([\w\d,]+)\]/g)]
+      .flatMap((m) => m[1].split(","))
+      .map((a) => a.trim());
+
+    setAmazonAsins(matches);
+  }, [blog]);
+
   useEffect(() => {
     if (blog.description) {
       const links = document.querySelectorAll(".observed-link");
@@ -319,6 +339,14 @@ export default function BlogPage({
                   blog.description.matchAll(/\[amazon:([\w\d]+)\]/g)
                 ).map((m) => m[1])}
               /> */}
+
+              <div className="w-full block my-12">
+                {amazonAsins.length > 0 && (
+                  <AmazonCarouselGlass asins={amazonAsins} />
+                )}
+                {console.log("amazonAsins:", amazonAsins)}
+                {console.log("productsUsedInPost:", productsUsedInPost)}
+              </div>
 
               {/* Affiliate disclosure */}
               <p className="mt-6 text-sm text-gray-600 text-center italic">

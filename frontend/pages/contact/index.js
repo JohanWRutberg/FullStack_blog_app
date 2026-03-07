@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import Head from "next/head";
+import Script from "next/script";
 import { BsArrowRight } from "react-icons/bs";
 import { motion } from "framer-motion";
 import { fadeIn } from "../../variants";
@@ -9,17 +10,19 @@ const Contact = () => {
     name: "",
     email: "",
     subject: "",
-    message: ""
+    message: "",
+    website: "", // Honeypot field
   });
 
   const [errors, setErrors] = useState({
     name: "",
     email: "",
     subject: "",
-    message: ""
+    message: "",
   });
 
   const [formMessage, setFormMessage] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const validateField = (name, value) => {
     let error = "";
@@ -55,63 +58,83 @@ const Contact = () => {
 
     setFormData({
       ...formData,
-      [name]: value
+      [name]: value,
     });
 
     const error = validateField(name, value);
     setErrors((prevErrors) => ({
       ...prevErrors,
-      [name]: error
+      [name]: error,
     }));
   };
 
   const isFormValid = () => {
     return (
       Object.values(errors).every((error) => error === "") &&
-      Object.values(formData).every((field) => field.trim() !== "")
+      formData.name.trim() !== "" &&
+      formData.email.trim() !== "" &&
+      formData.subject.trim() !== "" &&
+      formData.message.trim() !== ""
     );
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!isFormValid()) return;
+    if (!isFormValid() || isSubmitting) return;
+
+    setIsSubmitting(true);
+    setFormMessage("");
 
     try {
+      // Get reCAPTCHA token
+      const recaptchaToken = await window.grecaptcha.execute(
+        process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY,
+        { action: "submit" },
+      );
+
       const response = await fetch("/api/send-email", {
         method: "POST",
         headers: {
-          "Content-Type": "application/json"
+          "Content-Type": "application/json",
         },
-        body: JSON.stringify(formData)
+        body: JSON.stringify({
+          ...formData,
+          recaptchaToken,
+        }),
       });
+
+      const data = await response.json();
 
       if (response.ok) {
         setFormMessage("Email sent successfully!");
+        setFormData({
+          name: "",
+          email: "",
+          subject: "",
+          message: "",
+          website: "",
+        });
+        setErrors({
+          name: "",
+          email: "",
+          subject: "",
+          message: "",
+        });
       } else {
-        setFormMessage("Something went wrong, please try again.");
+        setFormMessage(data.error || "Something went wrong, please try again.");
       }
 
       setTimeout(() => {
         setFormMessage("");
       }, 5000);
-
-      setFormData({
-        name: "",
-        email: "",
-        subject: "",
-        message: ""
-      });
-      setErrors({
-        name: "",
-        email: "",
-        subject: "",
-        message: ""
-      });
     } catch (error) {
+      console.error("Submit error:", error);
       setFormMessage("An error occurred. Please try again later.");
       setTimeout(() => {
         setFormMessage("");
       }, 5000);
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -129,6 +152,10 @@ const Contact = () => {
           content="Have questions about electronic drums or accessories? Get in touch with the experts at Beat Mastermind today!"
         />
       </Head>
+      <Script
+        src={`https://www.google.com/recaptcha/api.js?render=${process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY}`}
+        strategy="lazyOnload"
+      />
       <div className="slugpage min-h-screen flex flex-col">
         <div className="container px-4">
           <div className="mailform max-w-2xl w-full shadow-lg rounded-lg p-8 mx-auto mt-4">
@@ -158,10 +185,16 @@ const Contact = () => {
                     value={formData.name}
                     onChange={handleChange}
                     className={`input bg-gray-50 border ${
-                      errors.name ? "border-red-500" : formData.name ? "border-green-500" : "border-gray-300"
+                      errors.name
+                        ? "border-red-500"
+                        : formData.name
+                          ? "border-green-500"
+                          : "border-gray-300"
                     } text-gray-800 text-sm rounded-lg focus:ring-accent focus:border-accent block w-full p-2.5`}
                   />
-                  {errors.name && <p className="text-red-500 text-sm mt-1">{errors.name}</p>}
+                  {errors.name && (
+                    <p className="text-red-500 text-sm mt-1">{errors.name}</p>
+                  )}
                 </div>
                 <div>
                   <input
@@ -171,10 +204,16 @@ const Contact = () => {
                     value={formData.email}
                     onChange={handleChange}
                     className={`input bg-gray-50 border ${
-                      errors.email ? "border-red-500" : formData.email ? "border-green-500" : "border-gray-300"
+                      errors.email
+                        ? "border-red-500"
+                        : formData.email
+                          ? "border-green-500"
+                          : "border-gray-300"
                     } text-gray-800 text-sm rounded-lg focus:ring-accent focus:border-accent block w-full p-2.5`}
                   />
-                  {errors.email && <p className="text-red-500 text-sm mt-1">{errors.email}</p>}
+                  {errors.email && (
+                    <p className="text-red-500 text-sm mt-1">{errors.email}</p>
+                  )}
                 </div>
               </div>
               <div>
@@ -185,10 +224,16 @@ const Contact = () => {
                   value={formData.subject}
                   onChange={handleChange}
                   className={`input bg-gray-50 border ${
-                    errors.subject ? "border-red-500" : formData.subject ? "border-green-500" : "border-gray-300"
+                    errors.subject
+                      ? "border-red-500"
+                      : formData.subject
+                        ? "border-green-500"
+                        : "border-gray-300"
                   } text-gray-800 text-sm rounded-lg focus:ring-accent focus:border-accent block w-full p-2.5`}
                 />
-                {errors.subject && <p className="text-red-500 text-sm mt-1">{errors.subject}</p>}
+                {errors.subject && (
+                  <p className="text-red-500 text-sm mt-1">{errors.subject}</p>
+                )}
               </div>
               <div>
                 <textarea
@@ -197,35 +242,57 @@ const Contact = () => {
                   value={formData.message}
                   onChange={handleChange}
                   className={`textarea bg-gray-50 border ${
-                    errors.message ? "border-red-500" : formData.message ? "border-green-500" : "border-gray-300"
+                    errors.message
+                      ? "border-red-500"
+                      : formData.message
+                        ? "border-green-500"
+                        : "border-gray-300"
                   } text-gray-800 text-sm rounded-lg focus:ring-accent focus:border-accent block w-full p-2.5 h-32 resize-none`}
                 ></textarea>
-                {errors.message && <p className="text-red-500 text-sm mt-1">{errors.message}</p>}
+                {errors.message && (
+                  <p className="text-red-500 text-sm mt-1">{errors.message}</p>
+                )}
               </div>
+              {/* Honeypot field - hidden from real users but bots will fill it */}
+              <input
+                type="text"
+                name="website"
+                value={formData.website}
+                onChange={handleChange}
+                style={{ position: "absolute", left: "-9999px" }}
+                tabIndex="-1"
+                autoComplete="off"
+              />
               <div className="flex items-center justify-between">
                 <button
                   type="submit"
-                  disabled={!isFormValid()}
+                  disabled={!isFormValid() || isSubmitting}
                   className={`btn rounded-full border border-white/50 max-w-[170px] px-8 transition-all duration-300 flex items-center justify-center overflow-hidden ${
-                    isFormValid() ? "hover:border-green-500 group" : "opacity-50 cursor-not-allowed"
+                    isFormValid() && !isSubmitting
+                      ? "hover:border-green-500 group"
+                      : "opacity-50 cursor-not-allowed"
                   }`}
                 >
                   <span
                     className={`${
-                      isFormValid() ? "group-hover:-translate-y-[120%] group-hover:opacity-0" : ""
+                      isFormValid() && !isSubmitting
+                        ? "group-hover:-translate-y-[120%] group-hover:opacity-0"
+                        : ""
                     } transition-all duration-500`}
                   >
-                    Let´s drum
+                    {isSubmitting ? "Sending..." : "Let´s drum"}
                   </span>
                   <BsArrowRight
                     className={`${
-                      isFormValid()
+                      isFormValid() && !isSubmitting
                         ? "-translate-y-[120%] opacity-0 group-hover:flex group-hover:-translate-y-0 group-hover:opacity-100"
                         : "hidden"
                     } transition-all duration-300 absolute text-[22px]`}
                   />
                 </button>
-                {formMessage && <p className="text-green-500 text-sm ml-4">{formMessage}</p>}
+                {formMessage && (
+                  <p className="text-green-500 text-sm ml-4">{formMessage}</p>
+                )}
               </div>
             </motion.form>
           </div>

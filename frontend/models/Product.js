@@ -1,15 +1,13 @@
-import { Schema, models, model } from "mongoose";
+import mongoose, { Schema } from "mongoose";
 
-const ProductSchema = new Schema(
-  {
-    asin: { type: String, required: true, unique: true },
-    title: { type: String },
-    price: { type: String },
-    image: { type: String },
-    url: { type: String },
-    lastFetched: { type: Date, default: Date.now },
-  },
-  { timestamps: true }
-);
+const ProductSchema = new Schema({
+  asin: { type: String, unique: true },
+  title: String,
+  price: String,
+  image: String,
+  url: String,
+  from: String,
+});
 
-export const Product = models.Product || model("Product", ProductSchema);
+export default mongoose.models.Product ||
+  mongoose.model("Product", ProductSchema);

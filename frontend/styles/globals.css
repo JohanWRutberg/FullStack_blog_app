@@ -291,7 +291,7 @@ a {
   color: inherit;
 }
 
-.border {
+.outline-debug {
   border: 1px solid red;
 }
 
@@ -2402,5 +2402,142 @@ a.custom-button {
 
   .slugtitle {
     font-size: 35px;
+  }
+
+  /* ========== PREMIUM CAROUSEL (GLOBAL) ========== */
+
+  .premium-wrapper {
+    position: relative;
+    width: 100%;
+    display: block; /* VIKTIGT */
+    overflow: visible;
+    padding: 2rem 0;
+  }
+
+  /* Scroll container: force horizontal only */
+  .carousel {
+    display: flex;
+    flex-wrap: nowrap !important; /* prevent wrapping -> avoids vertical stacking */
+    gap: 1.5rem;
+    overflow-x: auto;
+    overflow-y: hidden !important;
+    scroll-behavior: auto; /* we control smoothness in JS */
+    white-space: nowrap;
+    padding: 1rem 0;
+    -ms-overflow-style: none; /* hide IE scrollbar */
+  }
+
+  /* hide scrollbars */
+  .carousel::-webkit-scrollbar {
+    display: none;
+  }
+  .carousel {
+    scrollbar-width: none;
+  }
+
+  .premium-wrapper .carousel {
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  /* Fade overlays (on top) */
+  .fade-left,
+  .fade-right {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 90px;
+    z-index: 50;
+    pointer-events: none;
+  }
+
+  .fade-left {
+    left: 0;
+    background: linear-gradient(
+      to right,
+      rgba(0, 0, 0, 0.55),
+      rgba(0, 0, 0, 0)
+    );
+  }
+
+  .fade-right {
+    right: 0;
+    background: linear-gradient(to left, rgba(0, 0, 0, 0.55), rgba(0, 0, 0, 0));
+  }
+
+  /* dark mode variations */
+  .dark .fade-left {
+    background: linear-gradient(
+      to right,
+      rgba(10, 10, 10, 0.95),
+      rgba(10, 10, 10, 0)
+    );
+  }
+  .dark .fade-right {
+    background: linear-gradient(
+      to left,
+      rgba(10, 10, 10, 0.95),
+      rgba(10, 10, 10, 0)
+    );
+  }
+
+  /* Card styling (glassmorphism) */
+  .card {
+    min-width: 190px;
+    max-width: 190px;
+    background: rgba(255, 255, 255, 0.06);
+    backdrop-filter: blur(18px) saturate(140%);
+    -webkit-backdrop-filter: blur(18px) saturate(140%);
+    border-radius: 18px;
+    padding: 0.9rem;
+    text-align: center;
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.45);
+    transition: transform 0.18s ease, box-shadow 0.18s ease;
+    z-index: 20; /* under fade overlays but above carousel background */
+    flex-shrink: 0;
+  }
+
+  .dark .card {
+    background: rgba(26, 26, 26, 0.55);
+    border: 1px solid rgba(255, 255, 255, 0.04);
+    box-shadow: 0 10px 28px rgba(0, 0, 0, 0.6);
+  }
+
+  .card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 14px 40px rgba(0, 0, 0, 0.5);
+  }
+
+  /* Image container */
+  .img-wrap {
+    width: 100%;
+    height: 140px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 0.25rem;
+  }
+
+  /* Titles & price */
+  .card-body h4 {
+    font-size: 14px;
+    font-weight: 700;
+    color: #ffffff;
+    margin: 6px 0 2px;
+  }
+  .dark .card-body h4 {
+    color: #eaeaea;
+  }
+  .card-body p {
+    font-size: 13px;
+    color: #e6e6e6;
+    opacity: 0.9;
+    margin: 0;
+  }
+
+  /* Make sure wrapper doesn't push layout vertically */
+  .premium-wrapper .carousel > * {
+    vertical-align: top;
   }
 }
